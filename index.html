@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- I am the bones of a website, filled with tags and text. 
+I tell the browser what content to display, but I'm useless 
+without the stylesheet's dress. What am I? -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadillac Formula 1® | 2026 Contender - Home</title>
+  <link rel="icon" href="./img/cadillac_favicon.png" />
+  
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header-container">
+    <div class="header-item">
+      <img src="./img/cadillac-logo.jpg" alt="Cadillac Logo" class="brand-logo" />
+    </div>
+
+  <div class="navbar">
+  <ul>
+      <li><a href="#event">Event</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#predictions">Predictions</a></li>
+      <li><a href="#live">Live</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><button id="motion-button">Reduce Motion</button></li>
+      <li><button id="theme-button">Toggle Dark Mode</button></li>
+  </ul>
+</div>
+
+  </header>
+
+  <section class="hero">
+    <img src="./img/hero-cadillac-f1.jpg" alt="Cadillac F1 Car" class="hero-img" />
+    
+    <div class="hero-overlay">
+      <div id="hero-countdown-display" class="hero-countdown-display">
+        </div>
+      </div>
+  </section> <img src="./img/racing_stripe.jpg" alt="F1 Racing Stripe Divider" class="hero-divider-image" />
+
+
+  <!-- ============================================================
+     UPDATED EVENT SECTION
+     ============================================================ -->
+<section id="event" class="container event">
+    <div class="intro-card">
+      <h2>About the Watch-Along</h2>
+      <p>
+        Celebrate Cadillac's first Formula 1 race with our global community.
+        RSVP, share predictions, join live chat, and test your F1 knowledge!
+      </p>
+    </div>
+
+    <div class="event-grid three-column-grid">
+        <div class="card fan-chat-card">
+            <img src="./img/event-chat.jpg" alt="Fan chat" />
+            <h3>What to Expect</h3>
+            <div class="card-content-list">
+                <div class="card-content-item">
+                    <span class="content-icon">🏁</span>
+                    <div class="content-text">
+                        <span class="content-label">Live Experience:</span>
+                        <span class="content-name">Fan chat + live commentary</span>
+                    </div>
+                </div>
+                <div class="card-content-item">
+                    <span class="content-icon">🎯</span>
+                    <div class="content-text">
+                        <span class="content-label">Engagement:</span>
+                        <span class="content-name">Interactive trivia</span>
+                    </div>
+                </div>
+                <div class="card-content-item">
+                    <span class="content-icon">🏆</span>
+                    <div class="content-text">
+                        <span class="content-label">Competition:</span>
+                        <span class="content-name">Prediction leaderboard</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card predictions-podium-card">
+            <img src="./img/podium.jpg" alt="Podium" />
+            <h3>Top Fan Predictions</h3>
+            
+            <div class="card-content-list">
+                <div class="card-content-item" data-color="red-bull">
+                    <span class="content-icon">#1</span>
+                    <div class="content-text">
+                        <span class="content-label">Most Predicted Winner:</span>
+                        <a href="#max-verstappen" class="content-name driver-link">Max Verstappen <span class="team">(Red Bull)</span></a>
+                    </div>
+                </div>
+
+                <div class="card-content-item" data-color="cadillac">
+                    <span class="content-icon">🔥</span>
+                    <div class="content-text">
+                        <span class="content-label">Cadillac's Highest Prediction:</span>
+                        <a href="#valtteri-bottas" class="content-name driver-link">Valtteri Bottas <span class="team">(Cadillac)</span></a>
+                    </div>
+                </div>
+
+                <div class="card-content-item" data-color="mclaren">
+                    <span class="content-icon">🐶</span>
+                    <div class="content-text">
+                        <span class="content-label">Most Popular Underdog:</span>
+                        <a href="#lando-norris" class="content-name driver-link">Lando Norris <span class="team">(McLaren)</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="prediction-stats">85% of fans have submitted their predictions.</p>
+            <a href="#predictions" class="card-bottom-link">View Drivers</a>
+        </div>
+
+        <div class="card calendar-card">
+            <img src="./img/albert-park.jpg" alt="Albert Park Circuit" />
+            <h3>Add to Calendar</h3>
+            <div class="card-content-list">
+                <div class="card-content-item">
+                    <span class="content-icon">🗺️</span>
+                    <div class="content-text">
+                        <span class="content-label">Location:</span>
+                        <span class="content-name">Albert Park, Melbourne</span>
+                    </div>
+                </div>
+                <div class="card-content-item">
+                    <span class="content-icon">📅</span>
+                    <div class="content-text">
+                        <span class="content-label">Date:</span>
+                        <span class="content-name">March 6–8 2026</span>
+                    </div>
+                </div>
+                <div class="card-content-item">
+                    <span class="content-icon">🏁</span>
+                    <div class="content-text">
+                        <span class="content-label">Race Time:</span>
+                        <span class="content-name">5:00 PM EST</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <section id="schedule" class="container schedule">
+    <h2>Weekend Schedule</h2>
+
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <img src="./img/f1-practice.png" alt="Practice Session" />
+        <h3>Friday — Practice</h3>
+        <p>Free Practice sessions for setup and testing.</p>
+      </div>
+      <div class="schedule-card">
+        <img src="./img/f1-qualifying.png" alt="Qualifying" />
+        <h3>Saturday — Qualifying & Sprint</h3>
+        <p>Setting the grid and sprint battle for points.</p>
+      </div>
+      <div class="schedule-card">
+        <img src="./img/f1-race.png" alt="Race Day" />
+        <h3>Sunday — Race Day</h3>
+        <p>The main event! Strategy, speed, and Cadillac's debut.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="predictions" class="container">
+  <h2>Race Predictions</h2>
+  <p>Select your predicted winner below:</p>
+
+  <div class="driver-grid">
+    
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+                <img src="./img/sergio-perez.jpeg" alt="Sergio Pérez (Cadillac)">
+              <h4>Sergio Pérez</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card" id="valtteri-bottas">
+                <img src="./img/valtteri-bottas.jpeg" alt="Valtteri Bottas (Cadillac)">
+              <h4>Valtteri Bottas</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/cadillac_racing_new.jpg" alt="Cadillac F1 Car">
+                <h4>Cadillac</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/colapinto.jpeg" alt="Franco Colapinto (Alpine)">
+              <h4>Franco Colapinto</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/gasly.jpeg" alt="Pierre Gasly (Alpine)">
+              <h4>Pierre Gasly</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/alpine.jpeg" alt="Alpine F1 Car">
+                <h4>Alpine</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/alonzo.jpeg" alt="Fernando Alonso (Aston Martin)">
+              <h4>Fernando Alonso</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/stroll.jpeg" alt="Lance Stroll (Aston Martin)">
+              <h4>Lance Stroll</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/aston_martin.jpeg" alt="Aston Martin F1 Car">
+                <h4>Aston Martin</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/leclerc.jpeg" alt="Charles Leclerc (Ferrari)">
+              <h4>Charles Leclerc</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/hamilton.jpeg" alt="Lewis Hamilton (Ferrari)">
+              <h4>Lewis Hamilton</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/ferrari.jpeg" alt="Ferrari F1 Car">
+                <h4>Ferrari</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/bearman.jpeg" alt="Oliver Bearman (Haas)">
+              <h4>Oliver Bearman</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/ocon.jpeg" alt="Esteban Ocon (Haas)">
+              <h4>Esteban Ocon</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/haas.jpeg" alt="Haas F1 Car">
+                <h4>Haas</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/bortoleto.jpeg" alt="Gabriel Bortoleto (Kick Sauber)">
+              <h4>Gabriel Bortoleto</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/hulkenberg.jpeg" alt="Nico Hülkenberg (Kick Sauber)">
+              <h4>Nico Hülkenberg</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/kick_sauber.jpeg" alt="Kick Sauber F1 Car">
+                <h4>Kick Sauber</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/piastri.jpeg" alt="Oscar Piastri (McLaren)">
+              <h4>Oscar Piastri</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card" id="lando-norris">
+              <img src="./img/norris.jpeg" alt="Lando Norris (McLaren)">
+              <h4>Lando Norris</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/mclaren.jpeg" alt="McLaren F1 Car">
+                <h4>McLaren</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/russel.jpeg" alt="George Russell (Mercedes)">
+              <h4>George Russell</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/antonelli.jpeg" alt="Andrea Kimi Antonelli (Mercedes)">
+              <h4>Kimi Antonelli</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/mercedes.jpeg" alt="Mercedes F1 Car">
+                <h4>Mercedes</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card" id="max-verstappen">
+              <img src="./img/verstappen.jpeg" alt="Max Verstappen (Red Bull)">
+              <h4>Max Verstappen</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/tsunoda.jpeg" alt="Yuki Tsunoda (Red Bull)">
+              <h4>Yuki Tsunoda</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/red_bull_racing.jpeg" alt="Red Bull Racing Car">
+                <h4>Red Bull Racing</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-block">
+        <div class="driver-pair">
+            <div class="driver-card">
+              <img src="./img/albon.jpeg" alt="Alex Albon (Williams)">
+              <h4>Alex Albon</h4>
+              <button class="select-btn">Select</button>
+            </div>
+            <div class="driver-card">
+              <img src="./img/sainz.jpeg" alt="Carlos Sainz (Williams)">
+              <h4>Carlos Sainz</h4>
+              <button class="select-btn">Select</button>
+            </div>
+        </div>
+        <div class="car-row">
+            <div class="car-card">
+                <img src="./img/williams.jpeg" alt="Williams F1 Car">
+                <h4>Williams</h4>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="rsvp" class="container">
+    <h2>RSVP</h2>
+    
+    <div class="rsvp-main-card">
+        <div class="rsvp-container">
+            <div class="rsvp-para">
+                <p>Join the Cadillac F1 Watch-Along community event! <br> Sign up below.</p>
+            </div>
+
+            <div class="rsvp-participants" id="rsvp-list">
+                <p>🏁 DJ from Texas has RSVP'd.</p>
+                <p>🏁 Suzuna from New York has RSVP'd.</p>
+                <p>🏁 CodePath from California has RSVP'd.</p>
+                <p id="rsvp-count">⭐ 3 people have RSVP'd to this event!</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="rsvp-form" title="rsvp-form">
+              <label for="name">Name</label>
+              <input id="name" type="text" placeholder="First Last (e.g., John Doe)" />
+    
+              <label for="state">Location</label>
+              <input id="state" type="text" placeholder="State or Country (e.g., California, United Kingdom)" />
+    
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" />
+            </form>
+
+            <button id="rsvp-button" class="select-btn">Submit RSVP</button>
+        </div>
+    </div>
+</section>
+
+  <section id="links" class="container">
+    <h2>Official Articles & News</h2>
+
+    <div class="links-grid">
+      
+      <div class="card link-list-card">
+        <h3>Quick Links</h3>
+        <div class="link-item-container">
+            
+            <div class="link-item-card f1-color-1">
+                <a href="https://www.formula1.com/" target="_blank">
+                    Formula 1 Official Site <span>&#x2197;</span>
+                </a>
+            </div>
+            
+            <div class="link-item-card f1-color-2">
+                <a href="https://www.cadillac.com/racing/f1" target="_blank">
+                    Cadillac F1 <span>&#x2197;</span>
+                </a>
+            </div>
+            
+            <div class="link-item-card f1-color-3">
+                <a href="https://www.youtube.com/@Cadillac" target="_blank">
+                    Cadillac YouTube Channel <span>&#x2197;</span>
+                </a>
+            </div>
+
+            <div class="link-item-card f1-color-4">
+                <a href="https://www.skysports.com/f1" target="_blank">
+                    Sky Sports F1 News <span>&#x2197;</span>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+      <div class="card video-card">
+        <h3>F1 Debut Teaser</h3>
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/uKRjMLJ8Y7o"
+            title="Cadillac F1 Teaser"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      
+    </div>
+</section>
+
+<!-- =========================
+     TWO-STAGE SUCCESS MODAL
+     Inserted before footer (stage1: GIF fullscreen, stage2: split message)
+     ========================= -->
+<!-- Stage 1: fullscreen GIF overlay (no text) -->
+<div id="success-modal-stage1" class="modal-stage stage1" aria-hidden="true" role="dialog" aria-label="Watch-along countdown">
+  <div class="stage1-inner" tabindex="-1">
+    <!-- Add data-duration (ms) on this img if you want precise timing, e.g. data-duration="3500" -->
+    <img id="modal-stage1-img" src="./img/f1_red_light.gif" alt="F1 red light countdown" data-duration="" />
+  </div>
+</div>
+
+<!-- Stage 2: split-screen modal (text left, static image right) -->
+<div id="success-modal-stage2" class="modal-stage stage2" aria-hidden="true" role="dialog" aria-labelledby="modal-stage2-text">
+  <div class="stage2-panel" role="document">
+    <button id="modal-close-btn" class="modal-close" aria-label="Close">×</button>
+    <div class="stage2-left">
+      <p id="modal-stage2-text" class="modal-title">Thanks for RSVPing, Name!</p>
+      <p id="modal-stage2-sub" class="modal-sub">Lights out and away we go! You’re on the list — we’ll see you at the watch-along.</p>
+    </div>
+    <div class="stage2-right">
+      <img id="modal-stage2-img" src="./img/cadillac_modal.jpg" alt="Cadillac Racing Car (static)" />
+    </div>
+  </div>
+</div>
+
+
+
+    <footer class="footer">
+      <p class="disclaimer">
+        This is an unofficial fan project and is not affiliated with Formula 1, 
+        the FIA, or any Formula 1 teams.
+      </p>
+    <p>© 2026 Cadillac F1 Watch-Along Event Hub</p>
+    <div class="social-links">
+      <a href="https://x.com/Cadillac" target="_blank">X (Twitter)</a>
+      |
+      <a href="https://instagram.com/Cadillac" target="_blank">Instagram</a>
+      |
+      <a href="https://www.youtube.com/@Cadillac" target="_blank">YouTube</a>
+    </div>
+  </footer>
+  <a id="back-to-top" class="back-to-top" href="#top">
+    &#x25B2; 
+  </a>
+  <script src="index.js"></script>
+
+<!-- 
+  🧠 RIDDLE:
+  I am not the fastest, but I finish.
+  I am not the loudest, but I’m heard.
+  I am not the flashiest, but I endure.
+  What am I?
+
+  Answer: The code beneath the surface.
+
+  “Slow and steady wins the race.” — Aesop
+  Built by Shawn Blackman · 
+  https://www.linkedin.com/in/shawn-blackman-gis?
+-->
+</body>
+</html>
