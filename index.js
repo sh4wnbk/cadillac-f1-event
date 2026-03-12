@@ -11,35 +11,36 @@ const RACE_DURATION_MS    = 2 * 60 * 60 * 1000; // 2-hour live window
 
 /* ==============================================
    2026 F1 RACE SCHEDULE
-   Dates are plausible placeholders — the official
-   2026 FIA calendar has not been fully confirmed.
-   All raceStart values are in UTC.
+   Source: formula1.com/en/racing/2026 (fetched 2026-03-12)
+   Race start times are estimated UTC from typical local session times.
+   Exact times TBC until official FIA session schedule is published.
+   Round 16 listed as "Spain" on the official site — likely the new Madrid GP.
    ============================================== */
 const RACE_SCHEDULE_2026 = [
-  { round:  1, name: "Australian GP",     circuit: "Albert Park",             city: "Melbourne",       country: "Australia",    flag: "🇦🇺", raceStart: new Date("2026-03-08T22:00:00Z") },
-  { round:  2, name: "Chinese GP",        circuit: "Shanghai International",  city: "Shanghai",        country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-22T07:00:00Z") },
-  { round:  3, name: "Japanese GP",       circuit: "Suzuka",                  city: "Suzuka",          country: "Japan",        flag: "🇯🇵", raceStart: new Date("2026-04-05T05:00:00Z") },
-  { round:  4, name: "Bahrain GP",        circuit: "Bahrain International",   city: "Sakhir",          country: "Bahrain",      flag: "🇧🇭", raceStart: new Date("2026-04-19T15:00:00Z") },
-  { round:  5, name: "Saudi Arabian GP",  circuit: "Jeddah Corniche",         city: "Jeddah",          country: "Saudi Arabia", flag: "🇸🇦", raceStart: new Date("2026-05-03T17:00:00Z") },
-  { round:  6, name: "Miami GP",          circuit: "Miami International",     city: "Miami",           country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-05-10T19:00:00Z") },
-  { round:  7, name: "Emilia Romagna GP", circuit: "Autodromo Enzo e Dino Ferrari", city: "Imola",    country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-05-24T13:00:00Z") },
-  { round:  8, name: "Monaco GP",         circuit: "Circuit de Monaco",       city: "Monte Carlo",     country: "Monaco",       flag: "🇲🇨", raceStart: new Date("2026-05-31T13:00:00Z") },
-  { round:  9, name: "Spanish GP",        circuit: "Circuit de Barcelona-Catalunya", city: "Barcelona", country: "Spain",      flag: "🇪🇸", raceStart: new Date("2026-06-14T13:00:00Z") },
-  { round: 10, name: "Canadian GP",       circuit: "Circuit Gilles Villeneuve", city: "Montreal",     country: "Canada",       flag: "🇨🇦", raceStart: new Date("2026-06-21T18:00:00Z") },
-  { round: 11, name: "Austrian GP",       circuit: "Red Bull Ring",           city: "Spielberg",       country: "Austria",      flag: "🇦🇹", raceStart: new Date("2026-07-05T13:00:00Z") },
-  { round: 12, name: "British GP",        circuit: "Silverstone",             city: "Silverstone",     country: "UK",           flag: "🇬🇧", raceStart: new Date("2026-07-12T14:00:00Z") },
-  { round: 13, name: "Belgian GP",        circuit: "Circuit de Spa-Francorchamps", city: "Spa",       country: "Belgium",      flag: "🇧🇪", raceStart: new Date("2026-07-26T13:00:00Z") },
-  { round: 14, name: "Hungarian GP",      circuit: "Hungaroring",             city: "Budapest",        country: "Hungary",      flag: "🇭🇺", raceStart: new Date("2026-08-02T13:00:00Z") },
-  { round: 15, name: "Dutch GP",          circuit: "Circuit Zandvoort",       city: "Zandvoort",       country: "Netherlands",  flag: "🇳🇱", raceStart: new Date("2026-08-30T13:00:00Z") },
-  { round: 16, name: "Italian GP",        circuit: "Autodromo Nazionale Monza", city: "Monza",        country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-09-06T13:00:00Z") },
-  { round: 17, name: "Azerbaijan GP",     circuit: "Baku City Circuit",       city: "Baku",            country: "Azerbaijan",   flag: "🇦🇿", raceStart: new Date("2026-09-20T11:00:00Z") },
-  { round: 18, name: "Singapore GP",      circuit: "Marina Bay Street Circuit", city: "Singapore",    country: "Singapore",    flag: "🇸🇬", raceStart: new Date("2026-10-04T08:00:00Z") },
-  { round: 19, name: "United States GP",  circuit: "Circuit of the Americas", city: "Austin",          country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-10-18T19:00:00Z") },
-  { round: 20, name: "Mexico City GP",    circuit: "Autodromo Hermanos Rodriguez", city: "Mexico City", country: "Mexico",     flag: "🇲🇽", raceStart: new Date("2026-11-01T20:00:00Z") },
-  { round: 21, name: "São Paulo GP",      circuit: "Autodromo Jose Carlos Pace", city: "São Paulo",   country: "Brazil",       flag: "🇧🇷", raceStart: new Date("2026-11-15T17:00:00Z") },
-  { round: 22, name: "Las Vegas GP",      circuit: "Las Vegas Strip Circuit", city: "Las Vegas",       country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-11-22T06:00:00Z") },
-  { round: 23, name: "Qatar GP",          circuit: "Lusail International",    city: "Lusail",          country: "Qatar",        flag: "🇶🇦", raceStart: new Date("2026-12-06T17:00:00Z") },
-  { round: 24, name: "Abu Dhabi GP",      circuit: "Yas Marina",              city: "Abu Dhabi",       country: "UAE",          flag: "🇦🇪", raceStart: new Date("2026-12-13T13:00:00Z") },
+  { round:  1, name: "Australian GP",    circuit: "Albert Park",                   city: "Melbourne",    country: "Australia",    flag: "🇦🇺", raceStart: new Date("2026-03-08T04:00:00Z") },
+  { round:  2, name: "Chinese GP",       circuit: "Shanghai International Circuit", city: "Shanghai",    country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-15T07:00:00Z") },
+  { round:  3, name: "Japanese GP",      circuit: "Suzuka",                        city: "Suzuka",       country: "Japan",        flag: "🇯🇵", raceStart: new Date("2026-03-29T05:00:00Z") },
+  { round:  4, name: "Bahrain GP",       circuit: "Bahrain International Circuit", city: "Sakhir",       country: "Bahrain",      flag: "🇧🇭", raceStart: new Date("2026-04-12T15:00:00Z") },
+  { round:  5, name: "Saudi Arabian GP", circuit: "Jeddah Corniche Circuit",       city: "Jeddah",       country: "Saudi Arabia", flag: "🇸🇦", raceStart: new Date("2026-04-19T17:00:00Z") },
+  { round:  6, name: "Miami GP",         circuit: "Miami International Autodrome", city: "Miami",        country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-05-03T20:00:00Z") },
+  { round:  7, name: "Canadian GP",      circuit: "Circuit Gilles Villeneuve",     city: "Montreal",     country: "Canada",       flag: "🇨🇦", raceStart: new Date("2026-05-24T18:00:00Z") },
+  { round:  8, name: "Monaco GP",        circuit: "Circuit de Monaco",             city: "Monte Carlo",  country: "Monaco",       flag: "🇲🇨", raceStart: new Date("2026-06-07T13:00:00Z") },
+  { round:  9, name: "Spanish GP",       circuit: "Circuit de Barcelona-Catalunya",city: "Barcelona",    country: "Spain",        flag: "🇪🇸", raceStart: new Date("2026-06-14T13:00:00Z") },
+  { round: 10, name: "Austrian GP",      circuit: "Red Bull Ring",                 city: "Spielberg",    country: "Austria",      flag: "🇦🇹", raceStart: new Date("2026-06-28T13:00:00Z") },
+  { round: 11, name: "British GP",       circuit: "Silverstone",                   city: "Silverstone",  country: "UK",           flag: "🇬🇧", raceStart: new Date("2026-07-05T14:00:00Z") },
+  { round: 12, name: "Belgian GP",       circuit: "Circuit de Spa-Francorchamps",  city: "Spa",          country: "Belgium",      flag: "🇧🇪", raceStart: new Date("2026-07-19T13:00:00Z") },
+  { round: 13, name: "Hungarian GP",     circuit: "Hungaroring",                   city: "Budapest",     country: "Hungary",      flag: "🇭🇺", raceStart: new Date("2026-07-26T13:00:00Z") },
+  { round: 14, name: "Dutch GP",         circuit: "Circuit Zandvoort",             city: "Zandvoort",    country: "Netherlands",  flag: "🇳🇱", raceStart: new Date("2026-08-23T13:00:00Z") },
+  { round: 15, name: "Italian GP",       circuit: "Autodromo Nazionale Monza",     city: "Monza",        country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-09-06T13:00:00Z") },
+  { round: 16, name: "Madrid GP",        circuit: "Circuit TBC",                   city: "Madrid",       country: "Spain",        flag: "🇪🇸", raceStart: new Date("2026-09-13T13:00:00Z") },
+  { round: 17, name: "Azerbaijan GP",    circuit: "Baku City Circuit",             city: "Baku",         country: "Azerbaijan",   flag: "🇦🇿", raceStart: new Date("2026-09-26T11:00:00Z") },
+  { round: 18, name: "Singapore GP",     circuit: "Marina Bay Street Circuit",     city: "Singapore",    country: "Singapore",    flag: "🇸🇬", raceStart: new Date("2026-10-11T12:00:00Z") },
+  { round: 19, name: "United States GP", circuit: "Circuit of the Americas",       city: "Austin",       country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-10-25T20:00:00Z") },
+  { round: 20, name: "Mexico City GP",   circuit: "Autodromo Hermanos Rodriguez",  city: "Mexico City",  country: "Mexico",       flag: "🇲🇽", raceStart: new Date("2026-11-01T20:00:00Z") },
+  { round: 21, name: "São Paulo GP",     circuit: "Autodromo Jose Carlos Pace",    city: "São Paulo",    country: "Brazil",       flag: "🇧🇷", raceStart: new Date("2026-11-08T17:00:00Z") },
+  { round: 22, name: "Las Vegas GP",     circuit: "Las Vegas Strip Circuit",       city: "Las Vegas",    country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-11-22T06:00:00Z") },
+  { round: 23, name: "Qatar GP",         circuit: "Lusail International Circuit",  city: "Lusail",       country: "Qatar",        flag: "🇶🇦", raceStart: new Date("2026-11-29T17:00:00Z") },
+  { round: 24, name: "Abu Dhabi GP",     circuit: "Yas Marina Circuit",            city: "Abu Dhabi",    country: "UAE",          flag: "🇦🇪", raceStart: new Date("2026-12-06T13:00:00Z") },
 ];
 
 
