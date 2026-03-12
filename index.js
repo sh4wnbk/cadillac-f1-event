@@ -1,20 +1,52 @@
 /* ==============================================
    CONSTANTS
-   Centralised magic numbers — change here, not inline.
    ============================================== */
-const RACE_DATE            = "March 8, 2026 17:00:00 EST";
-const SCROLL_THRESHOLD     = 400;   // px before back-to-top appears
-const MODAL_AUTOCLOSE_MS   = 10_000; // stage 2 auto-close delay
-const STAGE_TRANSITION_MS  = 700;   // gap between stage 1 fade-out and stage 2 fade-in
-const HIGHLIGHT_DELAY_NEAR = 1000;  // ms scroll delay for Valtteri (near top)
-const HIGHLIGHT_DELAY_FAR  = 1700;  // ms scroll delay for Max / Lando (further down)
-const HIGHLIGHT_DURATION   = 1700;  // ms before driver-highlight class is removed
+const SCROLL_THRESHOLD    = 400;
+const MODAL_AUTOCLOSE_MS  = 10_000;
+const STAGE_TRANSITION_MS = 700;
+const HIGHLIGHT_DELAY_NEAR = 1000;
+const HIGHLIGHT_DELAY_FAR  = 1700;
+const HIGHLIGHT_DURATION   = 1700;
+const RACE_DURATION_MS    = 2 * 60 * 60 * 1000; // 2-hour live window
+
+/* ==============================================
+   2026 F1 RACE SCHEDULE
+   Dates are plausible placeholders — the official
+   2026 FIA calendar has not been fully confirmed.
+   All raceStart values are in UTC.
+   ============================================== */
+const RACE_SCHEDULE_2026 = [
+  { round:  1, name: "Australian GP",     circuit: "Albert Park",             city: "Melbourne",       country: "Australia",    flag: "🇦🇺", raceStart: new Date("2026-03-08T22:00:00Z") },
+  { round:  2, name: "Chinese GP",        circuit: "Shanghai International",  city: "Shanghai",        country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-22T07:00:00Z") },
+  { round:  3, name: "Japanese GP",       circuit: "Suzuka",                  city: "Suzuka",          country: "Japan",        flag: "🇯🇵", raceStart: new Date("2026-04-05T05:00:00Z") },
+  { round:  4, name: "Bahrain GP",        circuit: "Bahrain International",   city: "Sakhir",          country: "Bahrain",      flag: "🇧🇭", raceStart: new Date("2026-04-19T15:00:00Z") },
+  { round:  5, name: "Saudi Arabian GP",  circuit: "Jeddah Corniche",         city: "Jeddah",          country: "Saudi Arabia", flag: "🇸🇦", raceStart: new Date("2026-05-03T17:00:00Z") },
+  { round:  6, name: "Miami GP",          circuit: "Miami International",     city: "Miami",           country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-05-10T19:00:00Z") },
+  { round:  7, name: "Emilia Romagna GP", circuit: "Autodromo Enzo e Dino Ferrari", city: "Imola",    country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-05-24T13:00:00Z") },
+  { round:  8, name: "Monaco GP",         circuit: "Circuit de Monaco",       city: "Monte Carlo",     country: "Monaco",       flag: "🇲🇨", raceStart: new Date("2026-05-31T13:00:00Z") },
+  { round:  9, name: "Spanish GP",        circuit: "Circuit de Barcelona-Catalunya", city: "Barcelona", country: "Spain",      flag: "🇪🇸", raceStart: new Date("2026-06-14T13:00:00Z") },
+  { round: 10, name: "Canadian GP",       circuit: "Circuit Gilles Villeneuve", city: "Montreal",     country: "Canada",       flag: "🇨🇦", raceStart: new Date("2026-06-21T18:00:00Z") },
+  { round: 11, name: "Austrian GP",       circuit: "Red Bull Ring",           city: "Spielberg",       country: "Austria",      flag: "🇦🇹", raceStart: new Date("2026-07-05T13:00:00Z") },
+  { round: 12, name: "British GP",        circuit: "Silverstone",             city: "Silverstone",     country: "UK",           flag: "🇬🇧", raceStart: new Date("2026-07-12T14:00:00Z") },
+  { round: 13, name: "Belgian GP",        circuit: "Circuit de Spa-Francorchamps", city: "Spa",       country: "Belgium",      flag: "🇧🇪", raceStart: new Date("2026-07-26T13:00:00Z") },
+  { round: 14, name: "Hungarian GP",      circuit: "Hungaroring",             city: "Budapest",        country: "Hungary",      flag: "🇭🇺", raceStart: new Date("2026-08-02T13:00:00Z") },
+  { round: 15, name: "Dutch GP",          circuit: "Circuit Zandvoort",       city: "Zandvoort",       country: "Netherlands",  flag: "🇳🇱", raceStart: new Date("2026-08-30T13:00:00Z") },
+  { round: 16, name: "Italian GP",        circuit: "Autodromo Nazionale Monza", city: "Monza",        country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-09-06T13:00:00Z") },
+  { round: 17, name: "Azerbaijan GP",     circuit: "Baku City Circuit",       city: "Baku",            country: "Azerbaijan",   flag: "🇦🇿", raceStart: new Date("2026-09-20T11:00:00Z") },
+  { round: 18, name: "Singapore GP",      circuit: "Marina Bay Street Circuit", city: "Singapore",    country: "Singapore",    flag: "🇸🇬", raceStart: new Date("2026-10-04T08:00:00Z") },
+  { round: 19, name: "United States GP",  circuit: "Circuit of the Americas", city: "Austin",          country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-10-18T19:00:00Z") },
+  { round: 20, name: "Mexico City GP",    circuit: "Autodromo Hermanos Rodriguez", city: "Mexico City", country: "Mexico",     flag: "🇲🇽", raceStart: new Date("2026-11-01T20:00:00Z") },
+  { round: 21, name: "São Paulo GP",      circuit: "Autodromo Jose Carlos Pace", city: "São Paulo",   country: "Brazil",       flag: "🇧🇷", raceStart: new Date("2026-11-15T17:00:00Z") },
+  { round: 22, name: "Las Vegas GP",      circuit: "Las Vegas Strip Circuit", city: "Las Vegas",       country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-11-22T06:00:00Z") },
+  { round: 23, name: "Qatar GP",          circuit: "Lusail International",    city: "Lusail",          country: "Qatar",        flag: "🇶🇦", raceStart: new Date("2026-12-06T17:00:00Z") },
+  { round: 24, name: "Abu Dhabi GP",      circuit: "Yas Marina",              city: "Abu Dhabi",       country: "UAE",          flag: "🇦🇪", raceStart: new Date("2026-12-13T13:00:00Z") },
+];
 
 
 /* ==============================================
-   SAFE STORAGE UTILITY (JS-4)
-   Wraps localStorage in try/catch so private
-   browsing (Safari/Firefox) doesn't crash the page.
+   SAFE STORAGE UTILITY
+   Wraps localStorage so private browsing
+   (Safari/Firefox) doesn't crash the page.
    ============================================== */
 const safeStorage = {
   get: (key) => {
@@ -44,16 +76,13 @@ if (themeButton) themeButton.addEventListener('click', toggleDarkMode);
    REDUCE MOTION TOGGLE
    ============================================== */
 const motionButton = document.getElementById('motion-button');
-
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Restore saved preference or fall back to system preference
 const savedMotionPreference = safeStorage.get('reduce-motion');
 let motionReduced = savedMotionPreference !== null
   ? savedMotionPreference === 'true'
   : prefersReducedMotion;
 
-// Apply initial state without triggering the toggle function
 if (motionReduced) {
   document.body.classList.add('reduce-motion');
   if (motionButton) motionButton.textContent = 'Enable Motion';
@@ -74,44 +103,60 @@ if (motionButton) motionButton.addEventListener('click', toggleReduceMotion);
 
 /* ==============================================
    RSVP COUNTER
-   NOTE: Volatile — resets on page refresh.
-   Persistence via localStorage is deferred.
+   Volatile — resets on refresh. Persistence deferred.
    ============================================== */
 let count = 3;
 let participants = [];
 
 
 /* ==============================================
-   STRETCH: HERO LIVE COUNTDOWN TIMER (JS-5)
-   Interval ID hoisted to module scope so it can
-   be cleared if startCountdown() is called again.
+   HERO COUNTDOWN — FULL SEASON AWARE
+   - Finds the next upcoming race in RACE_SCHEDULE_2026
+   - Shows "RACE IS LIVE!" during a 2-hour window after race start
+   - Reverts to countdown + "UPCOMING: [Race Name]" after the window
+   - Shows "2026 Season Complete" after the final race
    ============================================== */
 let countdownInterval = null;
 
 const startCountdown = () => {
-  if (countdownInterval) clearInterval(countdownInterval); // prevent interval stacking
+  if (countdownInterval) clearInterval(countdownInterval);
 
-  const targetDate = new Date(RACE_DATE).getTime();
   const display = document.getElementById("hero-countdown-display");
   if (!display) return;
 
   const createSegment = (value, label) => `
     <div class="hero-countdown-segment">
-      <span class="hero-countdown-value">${value}</span>
+      <span class="hero-countdown-value">${String(value).padStart(2, '0')}</span>
       <span class="hero-countdown-label">${label}</span>
     </div>
   `;
 
-  countdownInterval = setInterval(() => {
-    const now      = Date.now();
-    const distance = targetDate - now;
+  const tick = () => {
+    const now = Date.now();
 
-    if (distance <= 0) {
-      clearInterval(countdownInterval);
-      countdownInterval = null;
-      display.textContent = "RACE IS LIVE!";
+    // 1. Check if a race is currently live (within 2-hour window)
+    const liveRace = RACE_SCHEDULE_2026.find(r => {
+      const start = r.raceStart.getTime();
+      return now >= start && now < start + RACE_DURATION_MS;
+    });
+
+    if (liveRace) {
+      display.innerHTML = `<div class="countdown-live">RACE IS LIVE!</div>`;
       return;
     }
+
+    // 2. Find the next upcoming race
+    const nextRace = RACE_SCHEDULE_2026.find(r => r.raceStart.getTime() > now);
+
+    if (!nextRace) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      display.innerHTML = `<div class="countdown-complete">2026 Season Complete. See you next year.</div>`;
+      return;
+    }
+
+    // 3. Render countdown to next race
+    const distance = nextRace.raceStart.getTime() - now;
 
     const MS_DAY  = 1000 * 60 * 60 * 24;
     const MS_HOUR = 1000 * 60 * 60;
@@ -126,8 +171,15 @@ const startCountdown = () => {
       createSegment(days,    "DAYS")  +
       createSegment(hours,   "HOURS") +
       createSegment(minutes, "MINS")  +
-      createSegment(seconds, "SECS");
-  }, 1000);
+      createSegment(seconds, "SECS")  +
+      `<div class="countdown-subtitle">
+        UPCOMING &mdash; ${nextRace.flag} ${nextRace.name}
+        <span class="countdown-round">Round ${nextRace.round} of 24</span>
+      </div>`;
+  };
+
+  tick(); // run immediately so there's no 1-second blank
+  countdownInterval = setInterval(tick, 1000);
 };
 
 startCountdown();
@@ -159,9 +211,7 @@ colorizeLinks();
 
 
 /* ==============================================
-   STRETCH: BACK TO TOP BUTTON (JS-1, JS-7)
-   - Null-guarded before every access
-   - Scroll listener throttled via requestAnimationFrame
+   STRETCH: BACK TO TOP (null-guarded, throttled)
    ============================================== */
 const backToTopButton = document.getElementById('back-to-top');
 
@@ -177,17 +227,10 @@ const scrollToTop = (event) => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// Throttled scroll handler — requestAnimationFrame ensures scrollFunction
-// fires at most once per animation frame (~16ms), not 60+ times per second.
-// Critical pre-condition for telemetry: DOM updates from live data will
-// compound with an unthrottled scroll listener and cause visible jank.
 let scrollTicking = false;
 window.addEventListener('scroll', () => {
   if (!scrollTicking) {
-    requestAnimationFrame(() => {
-      scrollFunction();
-      scrollTicking = false;
-    });
+    requestAnimationFrame(() => { scrollFunction(); scrollTicking = false; });
     scrollTicking = true;
   }
 });
@@ -210,7 +253,6 @@ if (scrollToHeroButton && heroCountdownTarget) {
 
 /* ==============================================
    ANIMATIONS: Driver highlight on anchor click
-   [Added in Unit 8]
    ============================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const highlightTargets = ["max-verstappen", "valtteri-bottas", "lando-norris"];
@@ -221,7 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     anchor.addEventListener("click", () => {
       const delay = (id === "valtteri-bottas") ? HIGHLIGHT_DELAY_NEAR : HIGHLIGHT_DELAY_FAR;
-
       setTimeout(() => {
         const target = document.getElementById(id);
         if (!target) return;
@@ -235,11 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ==============================================
    SUCCESS MODAL — TWO-STAGE SEQUENCE
-   Stage 1: fullscreen GIF (F1 red lights)
-   Stage 2: split-panel personalised message
    ============================================== */
-
-/* --- Element references --- */
 const stage1Modal   = document.getElementById('success-modal-stage1');
 const stage1Img     = document.getElementById('modal-stage1-img');
 const stage2Modal   = document.getElementById('success-modal-stage2');
@@ -248,40 +285,35 @@ const stage2Sub     = document.getElementById('modal-stage2-sub');
 const stage2Img     = document.getElementById('modal-stage2-img');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 
-/* --- Timer / animation handles --- */
 let _stage1TimeoutId     = null;
 let _stage2TimeoutId     = null;
-let _stageTransitionId   = null; // (JS-6) tracks the 700ms gap between stages
+let _stageTransitionId   = null;
 let _stage2AnimateInterval = null;
 
-/* --- Utility: show a modal stage --- */
 function _showStage(el) {
   if (!el) return;
   el.style.display = 'flex';
-  el.offsetHeight; // force reflow so CSS transition fires from display:none
+  el.offsetHeight;
   el.classList.add('show');
   el.setAttribute('aria-hidden', 'false');
   if (el === stage2Modal && modalCloseBtn) modalCloseBtn.focus();
 }
 
-/* --- Utility: hide a modal stage --- */
 function _hideStage(el) {
   if (!el) return;
   el.classList.remove('show');
   el.setAttribute('aria-hidden', 'true');
   setTimeout(() => {
     if (!el.classList.contains('show')) el.style.display = 'none';
-  }, 600); // matches CSS transition duration
+  }, 600);
 }
 
-/* --- Utility: read GIF duration from data attribute --- */
 function _getStage1Duration() {
   if (!stage1Img) return 5000;
   const parsed = parseInt(stage1Img.getAttribute('data-duration'), 10);
   return (!isNaN(parsed) && parsed > 0) ? parsed : 5000;
 }
 
-/* --- Utility: stage 2 image pulse animation --- */
 function _startStage2ImagePulse() {
   if (!stage2Img) return;
   let scaleUp = true;
@@ -299,7 +331,6 @@ function _stopStage2ImagePulse() {
   }
 }
 
-/* --- Utility: cancel all modal timers (JS-8 DRY extraction) --- */
 const _cleanupModal = () => {
   if (_stage1TimeoutId)   { clearTimeout(_stage1TimeoutId);   _stage1TimeoutId   = null; }
   if (_stage2TimeoutId)   { clearTimeout(_stage2TimeoutId);   _stage2TimeoutId   = null; }
@@ -307,19 +338,14 @@ const _cleanupModal = () => {
   _stopStage2ImagePulse();
 };
 
-/* --- Main sequence --- */
 const toggleModal = (person) => {
-  if (!stage1Modal || !stage2Modal) {
-    console.warn('Modal elements not found.');
-    return;
-  }
+  if (!stage1Modal || !stage2Modal) { console.warn('Modal elements not found.'); return; }
 
-  // Personalise stage 2 text — null-guarded (JS-2)
   const displayName = (person && person.name) ? person.name : 'Friend';
   if (stage2Text) stage2Text.textContent = `Thanks for RSVPing, ${displayName}!`;
   if (stage2Sub)  stage2Sub.textContent  = "Lights out and away we go! You're on the list — we'll see you at the watch-along.";
 
-  _cleanupModal(); // cancel any in-flight sequence before starting a new one
+  _cleanupModal();
   _showStage(stage1Modal);
 
   const isMotionReduced = document.body.classList.contains('reduce-motion');
@@ -327,13 +353,10 @@ const toggleModal = (person) => {
 
   _stage1TimeoutId = setTimeout(() => {
     _hideStage(stage1Modal);
-
-    // (JS-6) Tracked so closing during this gap cancels stage 2 from appearing
     _stageTransitionId = setTimeout(() => {
       _stageTransitionId = null;
       _showStage(stage2Modal);
       if (!isMotionReduced) _startStage2ImagePulse();
-
       _stage2TimeoutId = setTimeout(() => {
         _hideStage(stage2Modal);
         _stopStage2ImagePulse();
@@ -342,7 +365,6 @@ const toggleModal = (person) => {
   }, duration);
 };
 
-/* --- Close button --- */
 if (modalCloseBtn) {
   modalCloseBtn.addEventListener('click', () => {
     _hideStage(stage1Modal);
@@ -353,7 +375,6 @@ if (modalCloseBtn) {
   });
 }
 
-/* --- ESC key closes modal --- */
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     _hideStage(stage1Modal);
@@ -377,7 +398,6 @@ const addParticipant = (person) => {
   newP.textContent = `🏁 ${person.name} from ${person.state} has RSVP'd.`;
   list.appendChild(newP);
 
-  // (JS-3) Safe remove via optional chaining
   document.getElementById('rsvp-count')?.remove();
 
   count = (typeof count === 'number') ? count + 1 : 1;
@@ -389,7 +409,6 @@ const addParticipant = (person) => {
 
 const validateForm = (event) => {
   if (event && typeof event.preventDefault === 'function') event.preventDefault();
-
   if (!form) { console.warn('rsvp-form not found.'); return false; }
 
   let containsErrors = false;
@@ -406,17 +425,15 @@ const validateForm = (event) => {
 
     if (el.id === 'name') {
       const nameParts = value.split(/\s+/).filter(p => p.length > 0);
-      if (nameParts.length < 2)          isInvalid = true;
+      if (nameParts.length < 2)             isInvalid = true;
       else if (!validNameChars.test(value)) isInvalid = true;
-
     } else if (el.id === 'state') {
       const locationLower = value.toLowerCase();
-      if (value.length < 4)                          isInvalid = true;
-      else if (!validNameChars.test(value))          isInvalid = true;
+      if (value.length < 4)                              isInvalid = true;
+      else if (!validNameChars.test(value))              isInvalid = true;
       else if (blockedLocationTerms.includes(locationLower)) isInvalid = true;
-
     } else if (el.id !== 'email') {
-      if (value.length < 2)                          isInvalid = true;
+      if (value.length < 2)                              isInvalid = true;
       if (value.length > 0 && !validNameChars.test(value)) isInvalid = true;
     }
 
@@ -430,7 +447,6 @@ const validateForm = (event) => {
     }
   });
 
-  // Email validation (handled separately — different regex)
   const emailInput = document.getElementById('email');
   if (emailInput) {
     const emailVal   = (emailInput.value || '').trim();
@@ -453,17 +469,13 @@ const validateForm = (event) => {
       state: (document.getElementById('state')?.value || '').trim(),
       email: (document.getElementById('email')?.value || '').trim()
     };
-
     addParticipant(person);
-
-    // Clear inputs
     elements.forEach((el) => {
       if (!el || !el.type) return;
       if (el.tagName.toLowerCase() === 'button' || el.type === 'submit') return;
       el.value = '';
       el.classList.remove('success', 'error');
     });
-
     toggleModal(person);
     return true;
   }

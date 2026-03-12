@@ -25,9 +25,9 @@ without the stylesheet's dress. What am I? -->
   <div class="navbar">
   <ul>
       <li><a href="#event">Event</a></li>
-      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
       <li><a href="#predictions">Predictions</a></li>
-      <li><a href="#live">Live</a></li>
+      <li><a href="live.html">Live</a></li>
       <li><a href="#links">Links</a></li>
       <li><button id="motion-button">Reduce Motion</button></li>
       <li><button id="theme-button">Toggle Dark Mode</button></li>
@@ -170,6 +170,9 @@ without the stylesheet's dress. What am I? -->
         <h3>Sunday — Race Day</h3>
         <p>The main event! Strategy, speed, and Cadillac's debut.</p>
       </div>
+    </div>
+    <div class="section-footer-link">
+      <a href="schedule.html" class="select-btn">View Full 2026 Season Calendar &#x2197;</a>
     </div>
   </section>
 
@@ -425,35 +428,17 @@ without the stylesheet's dress. What am I? -->
     </div>
 </section>
 
-  <!-- ============================================================
-     LIVE TELEMETRY SECTION
-     Visualization boundary:
-       - OpenF1 REST / F1-Telemetry-Client UDP → Plotly.js (browser-native, real-time)
-       - FastF1 post-session analysis           → HoloViz/Panel (Python server, embedded)
-     Per mission_interfaces.ts: usePlotly: true, stale threshold: 30s
-     ============================================================ -->
-  <section id="live" class="container telemetry-section">
-    <div class="telemetry-header">
-      <h2>Live Telemetry: Cadillac V-Series.R</h2>
-      <div class="telemetry-meta">
-        <span id="telemetry-source-badge" class="telemetry-source-badge">Source: —</span>
-        <span id="stale-indicator" class="stale-indicator stale-indicator--hidden" aria-live="polite">
-          DATA STALE — CHECK CONNECTION
-        </span>
+  <!-- Live Telemetry teaser — full dashboard at live.html -->
+  <section class="container live-teaser-section">
+    <div class="live-teaser-card">
+      <div class="live-teaser-text">
+        <h2>Live Telemetry Dashboard</h2>
+        <p>Real-time speed, throttle, and DRS data from Cadillac's V-Series.R — powered by OpenF1 and F1-Telemetry-Client. Post-session lap analysis via FastF1 + HoloViz.</p>
+        <a href="live.html" class="select-btn">Open Live Dashboard &#x2197;</a>
       </div>
-    </div>
-
-    <div id="chart-area" class="chart-area" aria-label="Telemetry chart area">
-      <!-- Plotly.js chart mounts here for OpenF1 / F1-Telemetry-Client data.
-           HoloViz/Panel iframe embeds for FastF1 post-session analysis mount here. -->
-      <div class="chart-placeholder">
-        <p>Telemetry integration coming soon.</p>
-        <p class="chart-placeholder-sub">Live data via OpenF1 &amp; F1-Telemetry-Client · Post-session analysis via FastF1 + HoloViz</p>
+      <div class="live-teaser-badge" aria-hidden="true">
+        <span class="live-dot"></span> TELEMETRY
       </div>
-    </div>
-
-    <div id="loading-overlay" class="loading-overlay loading-overlay--hidden" aria-live="polite">
-      <p>Fetching Track Data...</p>
     </div>
   </section>
 

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadillac F1 | Live Telemetry Dashboard</title>
+  <link rel="icon" href="./img/cadillac_favicon.png" />
+  <link rel="stylesheet" href="./reset.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <!-- Plotly.js — browser-side visualizations (OpenF1 & F1-Telemetry-Client) -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+</head>
+
+<body>
+  <header class="header-container">
+    <div class="header-item">
+      <img src="./img/cadillac-logo.jpg" alt="Cadillac Logo" class="brand-logo" />
+    </div>
+    <div class="navbar">
+      <ul>
+        <li><a href="index.html#event">Event</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="index.html#predictions">Predictions</a></li>
+        <li><a href="live.html" class="nav-active">Live</a></li>
+        <li><a href="index.html#links">Links</a></li>
+        <li><button id="motion-button">Reduce Motion</button></li>
+        <li><button id="theme-button">Toggle Dark Mode</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1>Live Telemetry</h1>
+      <p class="page-hero-sub">Cadillac V-Series.R &mdash; Real-time &amp; post-session data</p>
+    </div>
+  </div>
+  <img src="./img/racing_stripe.jpg" alt="F1 Racing Stripe Divider" class="hero-divider-image" />
+
+  <section class="container telemetry-section">
+
+    <!-- Header bar: source badge + stale indicator -->
+    <div class="telemetry-header">
+      <h2>Telemetry Dashboard</h2>
+      <div class="telemetry-meta">
+        <span id="telemetry-source-badge" class="telemetry-source-badge">Source: —</span>
+        <span id="stale-indicator" class="stale-indicator stale-indicator--hidden" aria-live="polite">
+          DATA STALE &mdash; CHECK CONNECTION
+        </span>
+      </div>
+    </div>
+
+    <!-- Source selector -->
+    <div class="telemetry-source-selector">
+      <p class="source-selector-label">Data source:</p>
+      <div class="source-selector-buttons">
+        <button class="source-btn source-btn--active" data-source="OpenF1">
+          OpenF1 <span class="source-btn-type">Live REST</span>
+        </button>
+        <button class="source-btn" data-source="F1-Telemetry-Client">
+          F1 Game UDP <span class="source-btn-type">Sim</span>
+        </button>
+        <button class="source-btn" data-source="FastF1">
+          FastF1 <span class="source-btn-type">Post-session</span>
+        </button>
+        <button class="source-btn" data-source="Ergast">
+          Ergast <span class="source-btn-type">Historical</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chart area -->
+    <div id="chart-area" class="chart-area" aria-label="Telemetry chart area">
+      <div class="chart-placeholder">
+        <p>Telemetry integration in progress.</p>
+        <p class="chart-placeholder-sub">
+          Browser sources (OpenF1, F1-Telemetry-Client) &rarr; Plotly.js<br>
+          Post-session analysis (FastF1) &rarr; HoloViz / Panel embedded below
+        </p>
+      </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay loading-overlay--hidden" aria-live="polite">
+      <p>Fetching Track Data...</p>
+    </div>
+
+    <!-- HoloViz / Panel embed zone (FastF1 post-session) -->
+    <div class="holoviz-section">
+      <h3>Post-Session Analysis <span class="holoviz-badge">FastF1 + HoloViz</span></h3>
+      <p class="holoviz-description">
+        Lap-by-lap telemetry analysis powered by
+        <a href="https://theoehrly.github.io/Fast-F1/" target="_blank" rel="noopener noreferrer">FastF1</a>
+        and rendered via
+        <a href="https://holoviz.org" target="_blank" rel="noopener noreferrer">HoloViz / Panel</a>.
+        Requires a running Python server (<code>panel serve live_analysis.py</code>).
+      </p>
+      <div class="holoviz-embed-zone" id="holoviz-embed">
+        <div class="chart-placeholder">
+          <p>Panel server not connected.</p>
+          <p class="chart-placeholder-sub">Run <code>panel serve live_analysis.py --port 5006</code> then reload.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Telemetry data key -->
+    <div class="telemetry-key">
+      <h3>Data Fields</h3>
+      <div class="telemetry-key-grid">
+        <div class="key-item">
+          <span class="key-label">Speed</span>
+          <span class="key-desc">km/h &mdash; 0 to ~355 at top speed</span>
+        </div>
+        <div class="key-item">
+          <span class="key-label">Throttle</span>
+          <span class="key-desc">% &mdash; 0 (lift) to 100 (full)</span>
+        </div>
+        <div class="key-item">
+          <span class="key-label">DRS</span>
+          <span class="key-desc">Active / Inactive per timestamp</span>
+        </div>
+        <div class="key-item">
+          <span class="key-label">Stale threshold</span>
+          <span class="key-desc">Data older than 30s flagged automatically</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p class="disclaimer">
+      This is an unofficial fan project and is not affiliated with Formula 1,
+      the FIA, or any Formula 1 teams.
+    </p>
+    <p>&copy; 2026 Cadillac F1 Watch-Along Event Hub</p>
+    <div class="social-links">
+      <a href="https://x.com/Cadillac" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+      |
+      <a href="https://instagram.com/Cadillac" target="_blank" rel="noopener noreferrer">Instagram</a>
+      |
+      <a href="https://www.youtube.com/@Cadillac" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+  </footer>
+
+  <a id="back-to-top" class="back-to-top" href="#top">&#x25B2;</a>
+
+  <script src="live.js"></script>
+</body>
+</html>

@@ -1655,3 +1655,536 @@ body.dark-mode #modal-stage2-img {
     margin-left: 0;
   }
 }
+
+/* ==============================================
+   COUNTDOWN — LIVE & UPCOMING STATES
+   ============================================== */
+
+/* "RACE IS LIVE!" — large, V-Red, pulsing */
+.countdown-live {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  animation: live-pulse 1.2s ease-in-out infinite;
+  line-height: 1.1;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(220, 38, 38, 0.6); }
+  50%       { opacity: 0.75; text-shadow: 0 0 40px rgba(220, 38, 38, 0.9); }
+}
+
+body.reduce-motion .countdown-live {
+  animation: none;
+}
+
+/* "UPCOMING — Round X of 24" subtitle */
+.countdown-subtitle {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.countdown-round {
+  font-weight: 400;
+  opacity: 0.6;
+  font-size: 0.8em;
+}
+
+/* "2026 Season Complete" */
+.countdown-complete {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  text-align: center;
+  color: var(--text);
+  opacity: 0.7;
+  padding: 1rem;
+}
+
+/* ==============================================
+   SHARED: SUB-PAGE HERO (schedule, live)
+   ============================================== */
+.page-hero {
+  background-color: var(--header-footer-bg);
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  border-bottom: 3px solid #dc2626;
+}
+
+.page-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.page-hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.page-hero-disclaimer {
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Active nav link styling */
+.nav-active {
+  color: #dc2626 !important;
+  border-bottom: 2px solid #dc2626;
+}
+
+/* Section footer link (e.g. "View Full Calendar" button) */
+.section-footer-link {
+  text-align: center;
+  margin-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+/* ==============================================
+   LIVE TEASER CARD (index.html)
+   ============================================== */
+.live-teaser-section {
+  padding: 2rem 1rem;
+}
+
+.live-teaser-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--header-footer-bg);
+  border-left: 4px solid #dc2626;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.live-teaser-text h2 {
+  margin-bottom: 0.5rem;
+}
+
+.live-teaser-text p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  max-width: 520px;
+  opacity: 0.85;
+}
+
+.live-teaser-badge {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Pulsing live dot */
+.live-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #dc2626;
+  border-radius: 50%;
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+
+body.reduce-motion .live-dot {
+  animation: none;
+}
+
+/* ==============================================
+   SCHEDULE PAGE
+   ============================================== */
+.schedule-page {
+  padding-top: 2rem;
+}
+
+/* Next race strip */
+.next-race-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background-color: #dc2626;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.next-race-label {
+  opacity: 0.75;
+  font-size: 0.75rem;
+}
+
+.next-race-name {
+  font-size: 1rem;
+}
+
+.next-race-sep {
+  opacity: 0.5;
+}
+
+.next-race-countdown {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+/* Race card grid */
+.race-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  padding-bottom: 3rem;
+}
+
+.race-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--header-footer-bg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.race-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.race-card--next {
+  border-left: 4px solid #dc2626;
+}
+
+.race-card--completed {
+  opacity: 0.55;
+}
+
+.race-card--live {
+  border-left: 4px solid #dc2626;
+  animation: card-live-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes card-live-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(220,38,38,0); }
+  50%       { box-shadow: 0 0 12px rgba(220,38,38,0.4); }
+}
+
+body.reduce-motion .race-card--live {
+  animation: none;
+}
+
+.race-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.race-round {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+.race-status-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+}
+
+.race-status--upcoming  { background-color: var(--header-footer-bg); color: var(--text); }
+.race-status--completed { background-color: transparent; border: 1px solid; opacity: 0.6; color: var(--text); }
+.race-status--live      { background-color: #dc2626; color: #ffffff; }
+
+.race-flag {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.race-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0;
+}
+
+.race-circuit {
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  opacity: 0.75;
+  margin: 0;
+}
+
+.race-location {
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  opacity: 0.55;
+  margin: 0;
+}
+
+.race-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--header-footer-bg);
+}
+
+.race-date-item {
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.race-date-label {
+  font-weight: 700;
+  margin-right: 0.3rem;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}
+
+.race-card-countdown {
+  margin-top: 0.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  color: #dc2626;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.race-card-live-pulse {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ==============================================
+   LIVE PAGE — SOURCE SELECTOR
+   ============================================== */
+.telemetry-source-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.source-selector-label {
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.source-selector-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.source-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--header-footer-bg);
+  background-color: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: border-color 0.15s, background-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.source-btn:hover {
+  border-color: #dc2626;
+}
+
+.source-btn--active {
+  border-color: #dc2626;
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.source-btn-type {
+  font-size: 0.6rem;
+  font-weight: 400;
+  opacity: 0.75;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* HoloViz section */
+.holoviz-section {
+  margin-top: 2.5rem;
+}
+
+.holoviz-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.holoviz-badge {
+  font-size: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 2px;
+}
+
+.holoviz-description {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+.holoviz-embed-zone {
+  background-color: var(--card-bg);
+  border: 1px dashed var(--header-footer-bg);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Telemetry key */
+.telemetry-key {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--header-footer-bg);
+}
+
+.telemetry-key h3 {
+  margin-bottom: 1rem;
+}
+
+.telemetry-key-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.key-item {
+  background-color: var(--card-bg);
+  border: 1px solid var(--header-footer-bg);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.key-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #dc2626;
+}
+
+.key-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 700px) {
+  .live-teaser-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .next-race-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .race-grid {
+    grid-template-columns: 1fr;
+  }
+  .telemetry-source-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

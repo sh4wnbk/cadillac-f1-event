@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadillac F1 | 2026 Season Schedule</title>
+  <link rel="icon" href="./img/cadillac_favicon.png" />
+  <link rel="stylesheet" href="./reset.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header-container">
+    <div class="header-item">
+      <img src="./img/cadillac-logo.jpg" alt="Cadillac Logo" class="brand-logo" />
+    </div>
+    <div class="navbar">
+      <ul>
+        <li><a href="index.html#event">Event</a></li>
+        <li><a href="schedule.html" class="nav-active">Schedule</a></li>
+        <li><a href="index.html#predictions">Predictions</a></li>
+        <li><a href="live.html">Live</a></li>
+        <li><a href="index.html#links">Links</a></li>
+        <li><button id="motion-button">Reduce Motion</button></li>
+        <li><button id="theme-button">Toggle Dark Mode</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Page hero — narrower than the index hero -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1>2026 Season Schedule</h1>
+      <p class="page-hero-sub">24 rounds &mdash; Cadillac's debut season</p>
+      <p class="page-hero-disclaimer">
+        Dates are plausible placeholders. Official FIA 2026 calendar pending confirmation.
+      </p>
+    </div>
+  </div>
+  <img src="./img/racing_stripe.jpg" alt="F1 Racing Stripe Divider" class="hero-divider-image" />
+
+  <section class="container schedule-page">
+
+    <!-- Next race countdown strip -->
+    <div class="next-race-strip">
+      <span class="next-race-label">NEXT RACE</span>
+      <span id="schedule-next-race-name" class="next-race-name">—</span>
+      <span class="next-race-sep">&mdash;</span>
+      <span id="schedule-countdown" class="next-race-countdown">—</span>
+    </div>
+
+    <!-- Race grid -->
+    <div class="race-grid" id="race-grid">
+      <!-- Populated by schedule.js -->
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p class="disclaimer">
+      This is an unofficial fan project and is not affiliated with Formula 1,
+      the FIA, or any Formula 1 teams.
+    </p>
+    <p>&copy; 2026 Cadillac F1 Watch-Along Event Hub</p>
+    <div class="social-links">
+      <a href="https://x.com/Cadillac" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+      |
+      <a href="https://instagram.com/Cadillac" target="_blank" rel="noopener noreferrer">Instagram</a>
+      |
+      <a href="https://www.youtube.com/@Cadillac" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+  </footer>
+
+  <a id="back-to-top" class="back-to-top" href="#top">&#x25B2;</a>
+
+  <script src="schedule.js"></script>
+</body>
+</html>
