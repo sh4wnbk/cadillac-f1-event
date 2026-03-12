@@ -581,8 +581,8 @@ body.dark-mode .schedule-card {
 }
 
 .circuit-spinner {
-  width: 170px;
-  height: 170px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
   animation: circuit-spin 28s linear infinite;
   filter: drop-shadow(0 0 6px rgba(220, 38, 38, 0.35));
@@ -1966,47 +1966,91 @@ body.reduce-motion .countdown-live {
   padding: 0.75rem;
 }
 
-/* live.png footer image + LIVE overlay */
-.telemetry-live-wrap {
-  position: relative;
-  line-height: 0;
+/* ==============================================
+   TELEMETRY SESSION STRIP
+   ============================================== */
+.telemetry-session-strip {
+  border-top: 1px solid var(--header-footer-bg);
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  text-align: center;
 }
 
-.telemetry-live-img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+/* UP NEXT state */
+.strip-upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.telemetry-live-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.strip-up-label {
   font-family: 'Oswald', sans-serif;
-  font-size: 2.2rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #16a34a;
+  letter-spacing: 0.18em;
+  color: var(--color-v-yellow);
+}
+
+.strip-up-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* LIVE state — CSS glow, no image */
+.strip-live {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.strip-live-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--color-v-red);
   text-shadow:
-    0 0 12px rgba(22, 163, 74, 0.9),
-    0 0 30px rgba(22, 163, 74, 0.5);
-  animation: live-label-pulse 1.4s ease-in-out infinite;
-  pointer-events: none;
+    0 0 8px  rgba(220, 38, 38, 1),
+    0 0 24px rgba(220, 38, 38, 0.7),
+    0 0 48px rgba(220, 38, 38, 0.4);
+  animation: strip-live-pulse 1.5s ease-in-out infinite;
 }
 
-.telemetry-live-label--hidden {
-  display: none;
+.strip-live-session {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.65;
 }
 
-@keyframes live-label-pulse {
-  0%, 100% { opacity: 1;   transform: translate(-50%, -50%) scale(1);    }
-  50%       { opacity: 0.4; transform: translate(-50%, -50%) scale(1.06); }
+.strip-off {
+  font-size: 0.8rem;
+  opacity: 0.5;
 }
 
-body.reduce-motion .telemetry-live-label {
+@keyframes strip-live-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 8px  rgba(220, 38, 38, 1),
+      0 0 24px rgba(220, 38, 38, 0.7),
+      0 0 48px rgba(220, 38, 38, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 16px rgba(220, 38, 38, 1),
+      0 0 40px rgba(220, 38, 38, 0.9),
+      0 0 80px rgba(220, 38, 38, 0.6);
+    transform: scale(1.06);
+  }
+}
+
+body.reduce-motion .strip-live-text {
   animation: none;
 }
 

@@ -84,11 +84,8 @@ without the stylesheet's dress. What am I? -->
                 <p>Lap-by-lap analysis for every 2026 session.</p>
               </div>
             </div>
-            <!-- Live image footer with conditional LIVE overlay -->
-            <div class="telemetry-live-wrap">
-              <img src="./img/live.png" alt="Live race telemetry display" class="telemetry-live-img" />
-              <span id="telemetry-live-label" class="telemetry-live-label telemetry-live-label--hidden" aria-live="polite">LIVE</span>
-            </div>
+            <!-- Session strip: "UP NEXT …" at rest, pulsing LIVE during sessions -->
+            <div id="telemetry-session-strip" class="telemetry-session-strip" aria-live="polite"></div>
             <a href="live.html" class="card-bottom-link">Open Dashboard &#x2197;</a>
         </div>
 

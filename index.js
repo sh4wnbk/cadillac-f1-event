@@ -190,34 +190,82 @@ const buildCalendarCard = () => {
 buildCalendarCard();
 
 /* ==============================================
-   TELEMETRY LIVE LABEL
-   Shows "LIVE" overlay on live.png when any session
-   of the upcoming race weekend is in progress.
-   Weekend window: FP1 start (−51 h) → race end (+2 h).
+   TELEMETRY SESSION STRIP
+   Bottom of the Live Telemetry card.
+   — At rest:  "UP NEXT  FP1 · Fri, Mar 13 · 02:00 UTC"
+   — Live:     pulsing CSS "LIVE" + session name
+   Session durations: FP/SQ/Sprint 60 min, Quali 60 min, Race 120 min.
    ============================================== */
-const isRaceWeekendLive = () => {
+const SESSION_DURATION_MS = {
+  'FP1': 60, 'FP2': 60, 'FP3': 60,
+  'Sprint Quali': 30, 'Sprint Race': 60,
+  'Qualifying': 60, 'Race': 120,
+};
+
+const getSessionList = (race) => {
+  const r = race.raceStart.getTime();
+  const H = 3_600_000;
+  return race.hasSprint
+    ? [ { label: 'FP1',          start: r - 51 * H },
+        { label: 'Sprint Quali', start: r - 47 * H },
+        { label: 'Sprint Race',  start: r - 27 * H },
+        { label: 'Qualifying',   start: r - 23 * H },
+        { label: 'Race',         start: r           } ]
+    : [ { label: 'FP1',          start: r - 51 * H },
+        { label: 'FP2',          start: r - 47 * H },
+        { label: 'FP3',          start: r - 27 * H },
+        { label: 'Qualifying',   start: r - 23 * H },
+        { label: 'Race',         start: r           } ];
+};
+
+const updateTelemetryStrip = () => {
+  const strip = document.getElementById('telemetry-session-strip');
+  if (!strip) return;
+
   const now = Date.now();
-  const H   = 3_600_000;
-  return RACE_SCHEDULE_2026.some(race => {
-    const raceStart    = race.raceStart.getTime();
-    const weekendStart = raceStart - 51 * H;
-    const weekendEnd   = raceStart + RACE_DURATION_MS;
-    return now >= weekendStart && now < weekendEnd;
+  // Build a flat list of all sessions across all remaining weekends
+  const allSessions = RACE_SCHEDULE_2026.flatMap(race =>
+    getSessionList(race).map(s => ({ ...s, raceName: race.name }))
+  );
+
+  // Is any session live right now?
+  const liveSession = allSessions.find(s => {
+    const dur = (SESSION_DURATION_MS[s.label] ?? 60) * 60_000;
+    return now >= s.start && now < s.start + dur;
   });
-};
 
-const updateTelemetryLiveLabel = () => {
-  const label = document.getElementById('telemetry-live-label');
-  if (!label) return;
-  if (isRaceWeekendLive()) {
-    label.classList.remove('telemetry-live-label--hidden');
-  } else {
-    label.classList.add('telemetry-live-label--hidden');
+  if (liveSession) {
+    strip.innerHTML = `
+      <div class="strip-live">
+        <span class="strip-live-text">LIVE</span>
+        <span class="strip-live-session">${liveSession.label} &mdash; ${liveSession.raceName}</span>
+      </div>`;
+    return;
   }
+
+  // Find the next upcoming session
+  const nextSession = allSessions.find(s => s.start > now);
+  if (!nextSession) {
+    strip.innerHTML = `<p class="strip-off">Season complete.</p>`;
+    return;
+  }
+
+  const d   = new Date(nextSession.start);
+  const day = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+  const mon = d.toLocaleDateString('en-US', { month: 'short',   timeZone: 'UTC' });
+  const dd  = d.toLocaleDateString('en-US', { day: 'numeric',   timeZone: 'UTC' });
+  const hh  = String(d.getUTCHours()).padStart(2, '0');
+  const mm  = String(d.getUTCMinutes()).padStart(2, '0');
+
+  strip.innerHTML = `
+    <div class="strip-upcoming">
+      <span class="strip-up-label">UP NEXT</span>
+      <span class="strip-up-value">${nextSession.label} &mdash; ${day}, ${mon} ${dd} &middot; ${hh}:${mm} UTC</span>
+    </div>`;
 };
 
-updateTelemetryLiveLabel();
-setInterval(updateTelemetryLiveLabel, 60_000);
+updateTelemetryStrip();
+setInterval(updateTelemetryStrip, 30_000);
 
 /* ==============================================
    DARK MODE
