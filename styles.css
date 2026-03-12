@@ -1540,3 +1540,118 @@ body.dark-mode .hero-countdown-segment {
 body.dark-mode #modal-stage2-img {
   filter: brightness(0.9);
 }
+
+/* ==============================================
+   LIVE TELEMETRY SECTION
+   ============================================== */
+.telemetry-section {
+  padding: 2.5rem 1rem;
+}
+
+.telemetry-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.telemetry-header h2 {
+  margin: 0;
+}
+
+.telemetry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+/* Provenance badge — shows which TelemetryProvider is active */
+.telemetry-source-badge {
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 2px;
+}
+
+/* Stale data indicator — mirrors ITelemetryService.isDataStale() */
+.stale-indicator {
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  background-color: #dc2626;
+  color: #ffffff;
+  border-radius: 2px;
+  animation: pulse-stale 1.5s infinite;
+}
+
+.stale-indicator--hidden {
+  display: none;
+}
+
+@keyframes pulse-stale {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Chart area — Plotly.js / HoloViz iframe mounts here */
+.chart-area {
+  background-color: var(--card-bg);
+  border: 1px solid var(--header-footer-bg);
+  border-radius: 2px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.chart-placeholder {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.chart-placeholder-sub {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  border-radius: 2px;
+}
+
+.loading-overlay--hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .telemetry-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .telemetry-meta {
+    margin-left: 0;
+  }
+}
