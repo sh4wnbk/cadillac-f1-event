@@ -432,24 +432,29 @@ without the stylesheet's dress. What am I? -->
   <!-- Live Telemetry teaser — full dashboard at live.html -->
   <section class="container live-teaser-section">
     <div class="live-teaser-card">
-      <div class="live-teaser-text">
+
+      <div class="live-teaser-header">
         <h2>Live Telemetry Dashboard</h2>
-        <div class="tech-stack-container">
-          <div class="tech-row">
-            <span class="tech-label">Real-Time Telemetry</span>
-            <p>Speed, Throttle, and DRS data from <strong>Cadillac's V-Series.R</strong>
-               <br>— Powered by <em>OpenF1</em> &amp; <em>F1-Telemetry-Client</em></p>
-          </div>
-          <div class="tech-row">
-            <span class="tech-label">Post-Session Analysis</span>
-            <p>Deep-dive lap metrics via <em>FastF1</em> + <em>HoloViz</em></p>
-          </div>
+        <div class="live-teaser-badge" aria-hidden="true">
+          <span class="live-dot"></span> LIVE
         </div>
-        <a href="live.html" class="select-btn">Open Live Dashboard &#x2197;</a>
       </div>
-      <div class="live-teaser-badge" aria-hidden="true">
-        <span class="live-dot"></span> TELEMETRY
+
+      <div class="live-teaser-panels">
+        <div class="live-panel">
+          <span class="live-panel-label">Race Day</span>
+          <p>Real-time speed, throttle &amp; DRS for every Cadillac lap. Updated live.</p>
+        </div>
+        <div class="live-panel">
+          <span class="live-panel-label">Post-Race</span>
+          <p>Lap-by-lap analysis for every session of the 2026 season.</p>
+        </div>
       </div>
+
+      <div class="live-teaser-footer">
+        <a href="live.html" class="select-btn">Open Dashboard &#x2197;</a>
+      </div>
+
     </div>
   </section>
 

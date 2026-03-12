@@ -1874,24 +1874,60 @@ body.reduce-motion .countdown-live {
 .live-teaser-card {
   background-color: var(--card-bg);
   border: 1px solid var(--header-footer-bg);
-  border-left: 4px solid #dc2626;
+  border-left: 4px solid var(--color-v-red);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header row: title left, badge right */
+.live-teaser-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.live-teaser-text h2 {
+.live-teaser-header h2 {
+  margin: 0;
+}
+
+/* Two-column panel grid */
+.live-teaser-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.live-panel {
+  background-color: var(--background-color);
+  border: 1px solid var(--header-footer-bg);
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+
+.live-panel-label {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-v-yellow);
   margin-bottom: 0.5rem;
 }
 
-.live-teaser-text p {
+.live-panel p {
   font-size: 0.9rem;
-  margin-bottom: 1rem;
-  max-width: 520px;
   opacity: 0.85;
+  margin: 0;
+}
+
+/* Footer row: CTA anchored right */
+.live-teaser-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .live-teaser-badge {
@@ -2282,9 +2318,8 @@ body.reduce-motion .race-card--live {
 }
 
 @media (max-width: 700px) {
-  .live-teaser-card {
-    flex-direction: column;
-    align-items: flex-start;
+  .live-teaser-panels {
+    grid-template-columns: 1fr;
   }
   .next-race-strip {
     flex-direction: column;
