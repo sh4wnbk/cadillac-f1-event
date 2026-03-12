@@ -172,6 +172,36 @@ const buildCalendarCard = () => {
 buildCalendarCard();
 
 /* ==============================================
+   TELEMETRY LIVE LABEL
+   Shows "LIVE" overlay on live.png when any session
+   of the upcoming race weekend is in progress.
+   Weekend window: FP1 start (−51 h) → race end (+2 h).
+   ============================================== */
+const isRaceWeekendLive = () => {
+  const now = Date.now();
+  const H   = 3_600_000;
+  return RACE_SCHEDULE_2026.some(race => {
+    const raceStart    = race.raceStart.getTime();
+    const weekendStart = raceStart - 51 * H;
+    const weekendEnd   = raceStart + RACE_DURATION_MS;
+    return now >= weekendStart && now < weekendEnd;
+  });
+};
+
+const updateTelemetryLiveLabel = () => {
+  const label = document.getElementById('telemetry-live-label');
+  if (!label) return;
+  if (isRaceWeekendLive()) {
+    label.classList.remove('telemetry-live-label--hidden');
+  } else {
+    label.classList.add('telemetry-live-label--hidden');
+  }
+};
+
+updateTelemetryLiveLabel();
+setInterval(updateTelemetryLiveLabel, 60_000);
+
+/* ==============================================
    DARK MODE
    ============================================== */
 const themeButton = document.getElementById('theme-button');

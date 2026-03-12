@@ -1930,26 +1930,6 @@ body.reduce-motion .countdown-live {
 /* ==============================================
    TELEMETRY CARD (inline in event grid)
    ============================================== */
-.telemetry-card {
-  position: relative;
-}
-
-.telemetry-card-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--color-v-red);
-  background: var(--card-bg);
-  padding: 2px 8px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .telemetry-card .live-teaser-panels {
   margin: 0;
   padding: 0 20px 15px 20px;
@@ -1958,6 +1938,50 @@ body.reduce-motion .countdown-live {
 
 .telemetry-card .live-panel {
   padding: 0.75rem;
+}
+
+/* live.png footer image + LIVE overlay */
+.telemetry-live-wrap {
+  position: relative;
+  line-height: 0;
+}
+
+.telemetry-live-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.telemetry-live-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #16a34a;
+  text-shadow:
+    0 0 12px rgba(22, 163, 74, 0.9),
+    0 0 30px rgba(22, 163, 74, 0.5);
+  animation: live-label-pulse 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.telemetry-live-label--hidden {
+  display: none;
+}
+
+@keyframes live-label-pulse {
+  0%, 100% { opacity: 1;   transform: translate(-50%, -50%) scale(1);    }
+  50%       { opacity: 0.4; transform: translate(-50%, -50%) scale(1.06); }
+}
+
+body.reduce-motion .telemetry-live-label {
+  animation: none;
 }
 
 /* ==============================================
