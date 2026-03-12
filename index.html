@@ -94,7 +94,9 @@ without the stylesheet's dress. What am I? -->
 
         <!-- Card 3: Next Race calendar (dynamic) -->
         <div class="card calendar-card">
-            <img src="./img/albert-park.jpg" alt="Race Circuit" id="calendar-circuit-img" />
+            <div class="circuit-spinner-wrap">
+              <img id="calendar-circuit-svg" src="./img/circuits/australia.svg" alt="Circuit layout" class="circuit-spinner" title="Hover to pause" />
+            </div>
             <h3>Next Race</h3>
             <div id="calendar-race-info" class="card-content-list">
               <p class="standings-loading">Loading&hellip;</p>

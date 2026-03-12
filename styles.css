@@ -570,9 +570,36 @@ body.dark-mode .schedule-card {
     padding: 0;
 }
 
-.calendar-card img {
-    border-radius: 0; 
-    margin-bottom: 0;
+/* Rotating circuit layout spinner */
+.circuit-spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: var(--header-footer-bg);
+  overflow: hidden;
+}
+
+.circuit-spinner {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  animation: circuit-spin 28s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(220, 38, 38, 0.35));
+}
+
+.circuit-spinner:hover {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+@keyframes circuit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+body.reduce-motion .circuit-spinner {
+  animation: none;
 }
 
 .calendar-details {
@@ -673,8 +700,7 @@ body.dark-mode .schedule-card {
 
 /* All card images same height and flush with edges */
 .standings-card img,
-.telemetry-card img,
-.calendar-card img {
+.telemetry-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;

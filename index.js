@@ -114,6 +114,17 @@ fetchStandings();
 /* ==============================================
    CALENDAR CARD — dynamic next race + Google Calendar link
    ============================================== */
+const CIRCUIT_SVGS = {
+   1: 'australia',    2: 'china',        3: 'japan',
+   4: 'bahrain',      5: 'saudi_arabia', 6: 'miami',
+   7: 'canada',       8: 'monaco',       9: 'spain',
+  10: 'austria',     11: 'britain',     12: 'belgium',
+  13: 'hungary',     14: 'netherlands', 15: 'italy',
+  16: 'madrid',      17: 'azerbaijan',  18: 'singapore',
+  19: 'cota',        20: 'mexico',      21: 'sao_paulo',
+  22: 'las_vegas',   23: 'qatar',       24: 'abu_dhabi',
+};
+
 const buildCalendarCard = () => {
   const infoEl = document.getElementById('calendar-race-info');
   const linkEl = document.getElementById('calendar-gcal-link');
@@ -122,6 +133,13 @@ const buildCalendarCard = () => {
   const now      = Date.now();
   const nextRace = RACE_SCHEDULE_2026.find(r => r.raceStart.getTime() > now);
   if (!nextRace) { infoEl.innerHTML = '<p>Season complete.</p>'; return; }
+
+  // Swap circuit spinner SVG
+  const circuitImg = document.getElementById('calendar-circuit-svg');
+  if (circuitImg && CIRCUIT_SVGS[nextRace.round]) {
+    circuitImg.src = `./img/circuits/${CIRCUIT_SVGS[nextRace.round]}.svg`;
+    circuitImg.alt = `${nextRace.name} circuit layout`;
+  }
 
   const raceDate = nextRace.raceStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const raceTime = nextRace.raceStart.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
