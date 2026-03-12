@@ -187,6 +187,98 @@ startCountdown();
 
 
 /* ==============================================
+   WEEKEND SCHEDULE — DYNAMIC SESSION TIMES
+   Finds the next upcoming race and populates the
+   three schedule cards with estimated session times.
+   Offsets are derived from standard F1 scheduling
+   patterns relative to race start (UTC).
+   ============================================== */
+
+const deriveSessionTimes = (race) => {
+  const r   = race.raceStart.getTime();
+  const H   = 3_600_000; // 1 hour in ms
+
+  // Format a UTC timestamp → "Day, Mon DD · HH:MM UTC"
+  const fmt = (ms) => {
+    const d = new Date(ms);
+    const day = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+    const mon = d.toLocaleDateString('en-US', { month:   'short', timeZone: 'UTC' });
+    const dd  = d.toLocaleDateString('en-US', { day:     'numeric', timeZone: 'UTC' });
+    const hh  = String(d.getUTCHours()).padStart(2, '0');
+    const mm  = String(d.getUTCMinutes()).padStart(2, '0');
+    return `${day}, ${mon} ${dd} · ${hh}:${mm} UTC`;
+  };
+
+  if (race.hasSprint) {
+    return {
+      friday:   [ { label: 'FP1',          time: fmt(r - 51   * H) },
+                  { label: 'Sprint Quali', time: fmt(r - 47   * H) } ],
+      saturday: [ { label: 'Sprint Race',  time: fmt(r - 27   * H) },
+                  { label: 'Qualifying',   time: fmt(r - 23   * H) } ],
+      sunday:   [ { label: 'Race',         time: fmt(r)             } ],
+    };
+  }
+  return {
+    friday:   [ { label: 'FP1',        time: fmt(r - 51 * H) },
+                { label: 'FP2',        time: fmt(r - 47 * H) } ],
+    saturday: [ { label: 'FP3',        time: fmt(r - 27 * H) },
+                { label: 'Qualifying', time: fmt(r - 23 * H) } ],
+    sunday:   [ { label: 'Race',       time: fmt(r)           } ],
+  };
+};
+
+const updateWeekendSchedule = () => {
+  const now      = Date.now();
+  const subtitle = document.getElementById('schedule-race-subtitle');
+
+  // Use the live race if one is active, otherwise the next upcoming race
+  const targetRace =
+    RACE_SCHEDULE_2026.find(r => {
+      const s = r.raceStart.getTime();
+      return now >= s && now < s + RACE_DURATION_MS;
+    }) ||
+    RACE_SCHEDULE_2026.find(r => r.raceStart.getTime() > now);
+
+  if (!targetRace) {
+    if (subtitle) subtitle.textContent = '2026 Season Complete.';
+    return;
+  }
+
+  // Subtitle: race name + weekend dates
+  if (subtitle) {
+    const raceDate = targetRace.raceStart.toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+    });
+    subtitle.textContent =
+      `${targetRace.flag} ${targetRace.name} — ${targetRace.circuit}, ${targetRace.city}`;
+  }
+
+  const sessions  = deriveSessionTimes(targetRace);
+  const dayLabels = {
+    friday:   'Friday',
+    saturday: 'Saturday',
+    sunday:   'Sunday — Race Day',
+  };
+
+  ['friday', 'saturday', 'sunday'].forEach(day => {
+    const titleEl    = document.getElementById(`schedule-title-${day}`);
+    const sessionsEl = document.getElementById(`schedule-sessions-${day}`);
+    if (titleEl)    titleEl.textContent = dayLabels[day];
+    if (sessionsEl) {
+      sessionsEl.innerHTML = sessions[day].map(s => `
+        <div class="schedule-session-row">
+          <span class="schedule-session-label">${s.label}</span>
+          <span class="schedule-session-time">${s.time}</span>
+        </div>
+      `).join('');
+    }
+  });
+};
+
+updateWeekendSchedule();
+
+
+/* ==============================================
    STRETCH: COLORIZE LINK CARDS (Fisher-Yates)
    ============================================== */
 const colorizeLinks = () => {

@@ -386,6 +386,55 @@ body.dark-mode .schedule-card {
   min-height: 3em; /* Ensures all h3s take up the same vertical space */
 }
 
+.schedule-race-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  opacity: 0.85;
+}
+
+.schedule-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.25rem;
+}
+
+.schedule-session-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--header-footer-bg);
+}
+
+.schedule-session-row:last-child {
+  border-bottom: none;
+}
+
+.schedule-session-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.schedule-session-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text);
+  opacity: 0.7;
+  text-align: right;
+}
+
 /* ============================================================
    FAN CHAT CARD (Left Card) FIXES
    ============================================================ */
