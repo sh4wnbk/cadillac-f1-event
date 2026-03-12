@@ -1865,6 +1865,98 @@ body.reduce-motion .countdown-live {
 }
 
 /* ==============================================
+   DRIVER STANDINGS CARD
+   ============================================== */
+.standings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 4px;
+  flex: 1;
+}
+
+.standings-loading {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  padding: 8px 0;
+}
+
+.standings-row {
+  display: grid;
+  grid-template-columns: 24px 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 0.78rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.standings-row:nth-child(1) { border-color: var(--color-v-red); }
+.standings-row:nth-child(2) { border-color: #888; }
+.standings-row:nth-child(3) { border-color: #cd7f32; }
+
+.standings-pos {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-v-red);
+  text-align: right;
+}
+
+.standings-driver {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.standings-team {
+  font-size: 0.7rem;
+  opacity: 0.55;
+  white-space: nowrap;
+}
+
+.standings-pts {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-v-yellow);
+  white-space: nowrap;
+}
+
+/* ==============================================
+   TELEMETRY CARD (inline in event grid)
+   ============================================== */
+.telemetry-card {
+  position: relative;
+}
+
+.telemetry-card-badge {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-v-red);
+  background: var(--card-bg);
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.telemetry-card .live-teaser-panels {
+  margin: 10px 0;
+}
+
+.telemetry-card .live-panel {
+  padding: 0.75rem;
+}
+
+/* ==============================================
    LIVE TEASER CARD (index.html)
    ============================================== */
 .live-teaser-section {

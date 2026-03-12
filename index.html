@@ -53,101 +53,53 @@ without the stylesheet's dress. What am I? -->
     <div class="intro-card">
       <h2>About the Watch-Along</h2>
       <p>
-        Celebrate Cadillac's first Formula 1 race with our global community.
-        RSVP, share predictions, join live chat, and test your F1 knowledge!
+        Celebrate Cadillac's first Formula 1 season with our global community.
+        Track live standings, predict the race winner, and watch real-time telemetry from the pit wall.
       </p>
     </div>
 
     <div class="event-grid three-column-grid">
-        <div class="card fan-chat-card">
-            <img src="./img/event-chat.jpg" alt="Fan chat" />
-            <h3>What to Expect</h3>
-            <div class="card-content-list">
-                <div class="card-content-item">
-                    <span class="content-icon">🏁</span>
-                    <div class="content-text">
-                        <span class="content-label">Live Experience:</span>
-                        <span class="content-name">Fan chat + live commentary</span>
-                    </div>
-                </div>
-                <div class="card-content-item">
-                    <span class="content-icon">🎯</span>
-                    <div class="content-text">
-                        <span class="content-label">Engagement:</span>
-                        <span class="content-name">Interactive trivia</span>
-                    </div>
-                </div>
-                <div class="card-content-item">
-                    <span class="content-icon">🏆</span>
-                    <div class="content-text">
-                        <span class="content-label">Competition:</span>
-                        <span class="content-name">Prediction leaderboard</span>
-                    </div>
-                </div>
+
+        <!-- Card 1: Driver Standings (live from Jolpica/Ergast API) -->
+        <div class="card standings-card">
+            <img src="./img/podium.jpg" alt="F1 Podium" />
+            <h3>Driver Standings</h3>
+            <div id="standings-list" class="standings-list">
+              <p class="standings-loading">Loading standings&hellip;</p>
             </div>
+            <a href="#predictions" class="card-bottom-link">Pick Your Winner</a>
         </div>
 
-        <div class="card predictions-podium-card">
-            <img src="./img/podium.jpg" alt="Podium" />
-            <h3>Top Fan Predictions</h3>
-            
-            <div class="card-content-list">
-                <div class="card-content-item" data-color="red-bull">
-                    <span class="content-icon">#1</span>
-                    <div class="content-text">
-                        <span class="content-label">Most Predicted Winner:</span>
-                        <a href="#max-verstappen" class="content-name driver-link">Max Verstappen <span class="team">(Red Bull)</span></a>
-                    </div>
-                </div>
-
-                <div class="card-content-item" data-color="cadillac">
-                    <span class="content-icon">🔥</span>
-                    <div class="content-text">
-                        <span class="content-label">Cadillac's Highest Prediction:</span>
-                        <a href="#valtteri-bottas" class="content-name driver-link">Valtteri Bottas <span class="team">(Cadillac)</span></a>
-                    </div>
-                </div>
-
-                <div class="card-content-item" data-color="mclaren">
-                    <span class="content-icon">🐶</span>
-                    <div class="content-text">
-                        <span class="content-label">Most Popular Underdog:</span>
-                        <a href="#lando-norris" class="content-name driver-link">Lando Norris <span class="team">(McLaren)</span></a>
-                    </div>
-                </div>
+        <!-- Card 2: Live Telemetry (replaces static fan predictions) -->
+        <div class="card telemetry-card">
+            <img src="./img/cadillac_racing_new.jpg" alt="Cadillac F1 Car" />
+            <div class="telemetry-card-badge">
+              <span class="live-dot"></span> LIVE
             </div>
-
-            <p class="prediction-stats">85% of fans have submitted their predictions.</p>
-            <a href="#predictions" class="card-bottom-link">View Drivers</a>
+            <h3>Live Telemetry</h3>
+            <div class="live-teaser-panels">
+              <div class="live-panel">
+                <span class="live-panel-label">Race Day</span>
+                <p>Real-time speed, throttle &amp; DRS for every Cadillac lap.</p>
+              </div>
+              <div class="live-panel">
+                <span class="live-panel-label">Post-Race</span>
+                <p>Lap-by-lap analysis for every 2026 session.</p>
+              </div>
+            </div>
+            <a href="live.html" class="card-bottom-link">Open Dashboard &#x2197;</a>
         </div>
 
+        <!-- Card 3: Next Race calendar (dynamic) -->
         <div class="card calendar-card">
-            <img src="./img/albert-park.jpg" alt="Albert Park Circuit" />
-            <h3>Add to Calendar</h3>
-            <div class="card-content-list">
-                <div class="card-content-item">
-                    <span class="content-icon">🗺️</span>
-                    <div class="content-text">
-                        <span class="content-label">Location:</span>
-                        <span class="content-name">Albert Park, Melbourne</span>
-                    </div>
-                </div>
-                <div class="card-content-item">
-                    <span class="content-icon">📅</span>
-                    <div class="content-text">
-                        <span class="content-label">Date:</span>
-                        <span class="content-name">March 6–8 2026</span>
-                    </div>
-                </div>
-                <div class="card-content-item">
-                    <span class="content-icon">🏁</span>
-                    <div class="content-text">
-                        <span class="content-label">Race Time:</span>
-                        <span class="content-name">5:00 PM EST</span>
-                    </div>
-                </div>
+            <img src="./img/albert-park.jpg" alt="Race Circuit" id="calendar-circuit-img" />
+            <h3>Next Race</h3>
+            <div id="calendar-race-info" class="card-content-list">
+              <p class="standings-loading">Loading&hellip;</p>
             </div>
+            <a id="calendar-gcal-link" href="#" target="_blank" rel="noopener noreferrer" class="card-bottom-link">Add to Google Calendar &#x2197;</a>
         </div>
+
     </div>
 </section>
 
@@ -428,35 +380,6 @@ without the stylesheet's dress. What am I? -->
         </div>
     </div>
 </section>
-
-  <!-- Live Telemetry teaser — full dashboard at live.html -->
-  <section class="container live-teaser-section">
-    <div class="live-teaser-card">
-
-      <div class="live-teaser-header">
-        <h2>Live Telemetry Dashboard</h2>
-        <div class="live-teaser-badge" aria-hidden="true">
-          <span class="live-dot"></span> LIVE
-        </div>
-      </div>
-
-      <div class="live-teaser-panels">
-        <div class="live-panel">
-          <span class="live-panel-label">Race Day</span>
-          <p>Real-time speed, throttle &amp; DRS for every Cadillac lap. Updated live.</p>
-        </div>
-        <div class="live-panel">
-          <span class="live-panel-label">Post-Race</span>
-          <p>Lap-by-lap analysis for every session of the 2026 season.</p>
-        </div>
-      </div>
-
-      <div class="live-teaser-footer">
-        <a href="live.html" class="select-btn">Open Dashboard &#x2197;</a>
-      </div>
-
-    </div>
-  </section>
 
   <section id="links" class="container">
     <h2>Official Articles & News</h2>

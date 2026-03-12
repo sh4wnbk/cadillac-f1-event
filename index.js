@@ -60,6 +60,118 @@ const safeStorage = {
 
 
 /* ==============================================
+   DRIVER STANDINGS CARD
+   Fetches from Jolpica (Ergast replacement) API.
+   Falls back to hardcoded post-R1 2026 data if offline.
+   ============================================== */
+const STANDINGS_FALLBACK = [
+  { pos:  1, driver: 'L. Norris',     team: 'McLaren',       pts: 25 },
+  { pos:  2, driver: 'C. Leclerc',    team: 'Ferrari',       pts: 18 },
+  { pos:  3, driver: 'G. Russell',    team: 'Mercedes',      pts: 15 },
+  { pos:  4, driver: 'M. Verstappen', team: 'Red Bull',      pts: 12 },
+  { pos:  5, driver: 'O. Piastri',    team: 'McLaren',       pts: 10 },
+  { pos:  6, driver: 'L. Hamilton',   team: 'Ferrari',       pts:  8 },
+  { pos:  7, driver: 'F. Colapinto',  team: 'Alpine',        pts:  6 },
+  { pos:  8, driver: 'K. Antonelli',  team: 'Mercedes',      pts:  4 },
+  { pos:  9, driver: 'V. Bottas',     team: 'Cadillac',      pts:  2 },
+  { pos: 10, driver: 'S. Pérez',      team: 'Cadillac',      pts:  1 },
+];
+
+const fetchStandings = async () => {
+  const list = document.getElementById('standings-list');
+  if (!list) return;
+
+  let standings = STANDINGS_FALLBACK;
+
+  try {
+    const res = await fetch('https://api.jolpi.ca/ergast/f1/current/driverStandings.json');
+    if (res.ok) {
+      const data = await res.json();
+      const entries = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? [];
+      if (entries.length) {
+        standings = entries.slice(0, 10).map(e => ({
+          pos:    parseInt(e.position, 10),
+          driver: `${e.Driver.givenName[0]}. ${e.Driver.familyName}`,
+          team:   e.Constructors[0]?.name ?? '',
+          pts:    parseInt(e.points, 10),
+        }));
+      }
+    }
+  } catch { /* network unavailable — use fallback */ }
+
+  list.innerHTML = standings.map(s => `
+    <div class="standings-row">
+      <span class="standings-pos">${s.pos}</span>
+      <span class="standings-driver">${s.driver}</span>
+      <span class="standings-team">${s.team}</span>
+      <span class="standings-pts">${s.pts}</span>
+    </div>
+  `).join('');
+};
+
+fetchStandings();
+
+/* ==============================================
+   CALENDAR CARD — dynamic next race + Google Calendar link
+   ============================================== */
+const buildCalendarCard = () => {
+  const infoEl = document.getElementById('calendar-race-info');
+  const linkEl = document.getElementById('calendar-gcal-link');
+  if (!infoEl || !linkEl) return;
+
+  const now      = Date.now();
+  const nextRace = RACE_SCHEDULE_2026.find(r => r.raceStart.getTime() > now);
+  if (!nextRace) { infoEl.innerHTML = '<p>Season complete.</p>'; return; }
+
+  const raceDate = nextRace.raceStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const raceTime = nextRace.raceStart.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
+
+  // ISO strings for Google Calendar (YYYYMMDDTHHmmssZ)
+  const toGCal = d => d.toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
+  const endDate = new Date(nextRace.raceStart.getTime() + RACE_DURATION_MS);
+  const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+    `&text=${encodeURIComponent(nextRace.name + ' — F1 2026')}` +
+    `&dates=${toGCal(nextRace.raceStart)}/${toGCal(endDate)}` +
+    `&details=${encodeURIComponent('Watch the ' + nextRace.name + ' live! Cadillac F1 Watch-Along Hub.')}` +
+    `&location=${encodeURIComponent(nextRace.circuit + ', ' + nextRace.city + ', ' + nextRace.country)}`;
+
+  infoEl.innerHTML = `
+    <div class="card-content-item">
+      <span class="content-icon">${nextRace.flag}</span>
+      <div class="content-text">
+        <span class="content-label">Race</span>
+        <span class="content-name">${nextRace.name}</span>
+      </div>
+    </div>
+    <div class="card-content-item">
+      <span class="content-icon">📍</span>
+      <div class="content-text">
+        <span class="content-label">Circuit</span>
+        <span class="content-name">${nextRace.circuit}</span>
+      </div>
+    </div>
+    <div class="card-content-item">
+      <span class="content-icon">📅</span>
+      <div class="content-text">
+        <span class="content-label">Date</span>
+        <span class="content-name">${raceDate}</span>
+      </div>
+    </div>
+    <div class="card-content-item">
+      <span class="content-icon">🕐</span>
+      <div class="content-text">
+        <span class="content-label">Race Start</span>
+        <span class="content-name">${raceTime}</span>
+      </div>
+    </div>
+  `;
+
+  linkEl.href = gcalUrl;
+};
+
+buildCalendarCard();
+
+/* ==============================================
    DARK MODE
    ============================================== */
 const themeButton = document.getElementById('theme-button');
