@@ -9,23 +9,23 @@
 // Round 16 listed as "Spain" on official site — likely the new Madrid GP (circuit TBC).
 const RACE_SCHEDULE_2026 = [
   { round:  1, name: "Australian GP",    circuit: "Albert Park",                   city: "Melbourne",    country: "Australia",    flag: "🇦🇺", raceStart: new Date("2026-03-08T04:00:00Z"), practiceDates: "Mar 6–7" },
-  { round:  2, name: "Chinese GP",       circuit: "Shanghai International Circuit", city: "Shanghai",    country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-15T07:00:00Z"), practiceDates: "Mar 13–14" },
+  { round:  2, name: "Chinese GP",       circuit: "Shanghai International Circuit", city: "Shanghai",    country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-15T07:00:00Z"), practiceDates: "Mar 13–14", hasSprint: true },
   { round:  3, name: "Japanese GP",      circuit: "Suzuka",                        city: "Suzuka",       country: "Japan",        flag: "🇯🇵", raceStart: new Date("2026-03-29T05:00:00Z"), practiceDates: "Mar 27–28" },
   { round:  4, name: "Bahrain GP",       circuit: "Bahrain International Circuit", city: "Sakhir",       country: "Bahrain",      flag: "🇧🇭", raceStart: new Date("2026-04-12T15:00:00Z"), practiceDates: "Apr 10–11" },
   { round:  5, name: "Saudi Arabian GP", circuit: "Jeddah Corniche Circuit",       city: "Jeddah",       country: "Saudi Arabia", flag: "🇸🇦", raceStart: new Date("2026-04-19T17:00:00Z"), practiceDates: "Apr 17–18" },
-  { round:  6, name: "Miami GP",         circuit: "Miami International Autodrome", city: "Miami",        country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-05-03T20:00:00Z"), practiceDates: "May 1–2" },
-  { round:  7, name: "Canadian GP",      circuit: "Circuit Gilles Villeneuve",     city: "Montreal",     country: "Canada",       flag: "🇨🇦", raceStart: new Date("2026-05-24T18:00:00Z"), practiceDates: "May 22–23" },
+  { round:  6, name: "Miami GP",         circuit: "Miami International Autodrome", city: "Miami",        country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-05-03T20:00:00Z"), practiceDates: "May 1–2",   hasSprint: true },
+  { round:  7, name: "Canadian GP",      circuit: "Circuit Gilles Villeneuve",     city: "Montreal",     country: "Canada",       flag: "🇨🇦", raceStart: new Date("2026-05-24T18:00:00Z"), practiceDates: "May 22–23", hasSprint: true },
   { round:  8, name: "Monaco GP",        circuit: "Circuit de Monaco",             city: "Monte Carlo",  country: "Monaco",       flag: "🇲🇨", raceStart: new Date("2026-06-07T13:00:00Z"), practiceDates: "Jun 5–6" },
   { round:  9, name: "Spanish GP",       circuit: "Circuit de Barcelona-Catalunya",city: "Barcelona",    country: "Spain",        flag: "🇪🇸", raceStart: new Date("2026-06-14T13:00:00Z"), practiceDates: "Jun 12–13" },
   { round: 10, name: "Austrian GP",      circuit: "Red Bull Ring",                 city: "Spielberg",    country: "Austria",      flag: "🇦🇹", raceStart: new Date("2026-06-28T13:00:00Z"), practiceDates: "Jun 26–27" },
-  { round: 11, name: "British GP",       circuit: "Silverstone",                   city: "Silverstone",  country: "UK",           flag: "🇬🇧", raceStart: new Date("2026-07-05T14:00:00Z"), practiceDates: "Jul 3–4" },
+  { round: 11, name: "British GP",       circuit: "Silverstone",                   city: "Silverstone",  country: "UK",           flag: "🇬🇧", raceStart: new Date("2026-07-05T14:00:00Z"), practiceDates: "Jul 3–4",   hasSprint: true },
   { round: 12, name: "Belgian GP",       circuit: "Circuit de Spa-Francorchamps",  city: "Spa",          country: "Belgium",      flag: "🇧🇪", raceStart: new Date("2026-07-19T13:00:00Z"), practiceDates: "Jul 17–18" },
   { round: 13, name: "Hungarian GP",     circuit: "Hungaroring",                   city: "Budapest",     country: "Hungary",      flag: "🇭🇺", raceStart: new Date("2026-07-26T13:00:00Z"), practiceDates: "Jul 24–25" },
-  { round: 14, name: "Dutch GP",         circuit: "Circuit Zandvoort",             city: "Zandvoort",    country: "Netherlands",  flag: "🇳🇱", raceStart: new Date("2026-08-23T13:00:00Z"), practiceDates: "Aug 21–22" },
+  { round: 14, name: "Dutch GP",         circuit: "Circuit Zandvoort",             city: "Zandvoort",    country: "Netherlands",  flag: "🇳🇱", raceStart: new Date("2026-08-23T13:00:00Z"), practiceDates: "Aug 21–22", hasSprint: true },
   { round: 15, name: "Italian GP",       circuit: "Autodromo Nazionale Monza",     city: "Monza",        country: "Italy",        flag: "🇮🇹", raceStart: new Date("2026-09-06T13:00:00Z"), practiceDates: "Sep 4–5" },
   { round: 16, name: "Madrid GP",        circuit: "Circuit TBC",                   city: "Madrid",       country: "Spain",        flag: "🇪🇸", raceStart: new Date("2026-09-13T13:00:00Z"), practiceDates: "Sep 11–12" },
   { round: 17, name: "Azerbaijan GP",    circuit: "Baku City Circuit",             city: "Baku",         country: "Azerbaijan",   flag: "🇦🇿", raceStart: new Date("2026-09-26T11:00:00Z"), practiceDates: "Sep 24–25" },
-  { round: 18, name: "Singapore GP",     circuit: "Marina Bay Street Circuit",     city: "Singapore",    country: "Singapore",    flag: "🇸🇬", raceStart: new Date("2026-10-11T12:00:00Z"), practiceDates: "Oct 9–10" },
+  { round: 18, name: "Singapore GP",     circuit: "Marina Bay Street Circuit",     city: "Singapore",    country: "Singapore",    flag: "🇸🇬", raceStart: new Date("2026-10-11T12:00:00Z"), practiceDates: "Oct 9–10", hasSprint: true },
   { round: 19, name: "United States GP", circuit: "Circuit of the Americas",       city: "Austin",       country: "USA",          flag: "🇺🇸", raceStart: new Date("2026-10-25T20:00:00Z"), practiceDates: "Oct 23–24" },
   { round: 20, name: "Mexico City GP",   circuit: "Autodromo Hermanos Rodriguez",  city: "Mexico City",  country: "Mexico",       flag: "🇲🇽", raceStart: new Date("2026-11-01T20:00:00Z"), practiceDates: "Oct 30–31" },
   { round: 21, name: "São Paulo GP",     circuit: "Autodromo Jose Carlos Pace",    city: "São Paulo",    country: "Brazil",       flag: "🇧🇷", raceStart: new Date("2026-11-08T17:00:00Z"), practiceDates: "Nov 6–7" },
@@ -138,7 +138,10 @@ const buildRaceGrid = () => {
       <div class="race-card race-card--${status}${isNext ? ' race-card--next' : ''}" data-round="${race.round}">
         <div class="race-card-header">
           <span class="race-round">R${String(race.round).padStart(2, '0')}</span>
-          <span class="race-status-badge race-status--${status}">${statusLabel}</span>
+          <div class="race-card-badges">
+            ${race.hasSprint ? `<span class="race-sprint-badge">SPRINT</span>` : ''}
+            <span class="race-status-badge race-status--${status}">${statusLabel}</span>
+          </div>
         </div>
         <div class="race-flag">${race.flag}</div>
         <h3 class="race-name">${race.name}</h3>

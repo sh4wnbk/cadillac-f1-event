@@ -1953,6 +1953,24 @@ body.reduce-motion .race-card--live {
 .race-status--completed { background-color: transparent; border: 1px solid; opacity: 0.6; color: var(--text); }
 .race-status--live      { background-color: #dc2626; color: #ffffff; }
 
+.race-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.race-sprint-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  background-color: #eab308;
+  color: #000000;
+}
+
 .race-flag {
   font-size: 1.8rem;
   line-height: 1;
