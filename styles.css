@@ -1901,6 +1901,8 @@ body.reduce-motion .countdown-live {
   gap: 4px;
   padding: 0 20px 15px 20px;
   flex: 1;
+  max-height: 420px;
+  overflow-y: auto;
 }
 
 .standings-loading {
