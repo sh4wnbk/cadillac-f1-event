@@ -289,7 +289,7 @@ const renderStripUpNext = (strip) => {
   );
   const nextSession = allSessions.find(s => s.start > now);
   if (!nextSession) {
-    strip.innerHTML = `<p class="strip-off">Season complete.</p>`;
+    strip.textContent = 'Season complete.';
     return;
   }
   const d   = new Date(nextSession.start);
@@ -298,16 +298,28 @@ const renderStripUpNext = (strip) => {
   const dd  = d.toLocaleDateString('en-US', { day: 'numeric',   timeZone: 'UTC' });
   const hh  = String(d.getUTCHours()).padStart(2, '0');
   const mm  = String(d.getUTCMinutes()).padStart(2, '0');
-  strip.innerHTML = `
-    <div class="strip-upcoming">
-      <span class="strip-up-label">UP NEXT</span>
-      <span class="strip-up-value">${nextSession.label} &mdash; ${day}, ${mon} ${dd} &middot; ${hh}:${mm} UTC</span>
-    </div>`;
+  strip.textContent = `UP NEXT \u00B7 ${nextSession.label} \u2014 ${day}, ${mon} ${dd} \u00B7 ${hh}:${mm} UTC`;
 };
 
 const updateTelemetryStrip = async () => {
-  const strip = document.getElementById('telemetry-session-strip');
+  const strip   = document.getElementById('telemetry-session-strip');
+  const overlay = document.getElementById('telemetry-live-overlay');
   if (!strip) return;
+
+  const setLive = (sessionName, location) => {
+    strip.textContent = `${sessionName}${location ? ' \u2014 ' + location : ''}`;
+    if (overlay) {
+      overlay.innerHTML = '<span>LIVE</span>';
+      overlay.classList.add('is-live');
+    }
+  };
+
+  const clearLive = () => {
+    if (overlay) {
+      overlay.innerHTML = '';
+      overlay.classList.remove('is-live');
+    }
+  };
 
   const now = Date.now();
 
@@ -321,11 +333,7 @@ const updateTelemetryStrip = async () => {
         const start = new Date(s.date_start).getTime();
         const end   = new Date(s.date_end).getTime();
         if (now >= start && now <= end) {
-          strip.innerHTML = `
-            <div class="strip-live">
-              <span class="strip-live-text">LIVE</span>
-              <span class="strip-live-session">${s.session_name} &mdash; ${s.location ?? ''}</span>
-            </div>`;
+          setLive(s.session_name ?? 'Session', s.location ?? '');
           return;
         }
       }
@@ -341,14 +349,11 @@ const updateTelemetryStrip = async () => {
     return now >= s.start && now < s.start + dur;
   });
   if (liveSession) {
-    strip.innerHTML = `
-      <div class="strip-live">
-        <span class="strip-live-text">LIVE</span>
-        <span class="strip-live-session">${liveSession.label} &mdash; ${liveSession.raceName}</span>
-      </div>`;
+    setLive(liveSession.label, liveSession.raceName);
     return;
   }
 
+  clearLive();
   renderStripUpNext(strip);
 };
 

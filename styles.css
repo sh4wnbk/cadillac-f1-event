@@ -576,7 +576,7 @@ body.dark-mode .schedule-card {
   align-items: center;
   justify-content: center;
   height: 200px;
-  background: var(--header-footer-bg);
+  background: #0d0d0d;
   overflow: hidden;
 }
 
@@ -707,6 +707,88 @@ body.reduce-motion .circuit-spinner {
   object-position: center;
   border-radius: 0;
   margin-bottom: 0;
+}
+
+/* Dark overlay treatment on podium image */
+.standings-card img {
+  filter: brightness(0.55) saturate(0.7);
+}
+
+/* Telemetry card image wrapper — positions LIVE overlay */
+.telemetry-img-wrap {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.telemetry-img-wrap img {
+  display: block;
+}
+
+/* Green pulsing LIVE overlay — hidden by default, shown when is-live */
+.telemetry-live-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #fff;
+}
+
+.telemetry-live-overlay.is-live {
+  display: flex;
+}
+
+.telemetry-live-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.telemetry-live-overlay span {
+  position: relative;
+  z-index: 1;
+  color: #22c55e;
+  animation: live-pulse 1.4s ease-in-out infinite;
+  text-shadow: 0 0 18px rgba(34, 197, 94, 0.7);
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* Telemetry card footer — session label + link side by side */
+.telemetry-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 20px 20px 20px;
+  flex-grow: 1;
+  align-items: flex-end;
+}
+
+.telemetry-session-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #888;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Override card-bottom-link padding when inside telemetry footer */
+.telemetry-card-footer .card-bottom-link {
+  padding: 0;
+  flex-shrink: 0;
 }
 
 /* Uniform H3 styling across all cards */
@@ -2070,20 +2152,7 @@ body.reduce-motion .countdown-live {
 }
 
 /* ==============================================
-   TELEMETRY CARD (inline in event grid)
-   ============================================== */
-.telemetry-card .live-teaser-panels {
-  margin: 0;
-  padding: 0 20px 15px 20px;
-  grid-template-columns: 1fr 1fr;
-}
-
-.telemetry-card .live-panel {
-  padding: 0.75rem;
-}
-
-/* ==============================================
-   TELEMETRY SESSION STRIP
+   TELEMETRY SESSION STRIP (legacy — kept for live.html strip variants)
    ============================================== */
 .telemetry-session-strip {
   border-top: 1px solid var(--header-footer-bg);

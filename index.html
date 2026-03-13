@@ -71,23 +71,17 @@ without the stylesheet's dress. What am I? -->
             <a href="#predictions" class="card-bottom-link">Drivers</a>
         </div>
 
-        <!-- Card 2: Live Telemetry (replaces static fan predictions) -->
+        <!-- Card 2: Live Telemetry -->
         <div class="card telemetry-card">
-            <img src="./img/telemetry.jpeg" alt="F1 Live Telemetry" />
-            <h3>Live Telemetry</h3>
-            <div class="live-teaser-panels">
-              <div class="live-panel">
-                <span class="live-panel-label">Race Day</span>
-                <p>Real-time speed, throttle &amp; DRS for all 20 drivers. Updated live.</p>
-              </div>
-              <div class="live-panel">
-                <span class="live-panel-label">Post-Race</span>
-                <p>Lap-by-lap analysis for every 2026 session.</p>
-              </div>
+            <div class="telemetry-img-wrap">
+                <img src="./img/live.png" alt="F1 Live" />
+                <div id="telemetry-live-overlay" class="telemetry-live-overlay" aria-hidden="true"></div>
             </div>
-            <!-- Session strip: "UP NEXT …" at rest, pulsing LIVE during sessions -->
-            <div id="telemetry-session-strip" class="telemetry-session-strip" aria-live="polite"></div>
-            <a href="live.html" class="card-bottom-link">Open Dashboard &#x2197;</a>
+            <h3>Live Telemetry</h3>
+            <div class="telemetry-card-footer">
+                <span id="telemetry-session-strip" class="telemetry-session-label" aria-live="polite"></span>
+                <a href="live.html" class="card-bottom-link">Open Dashboard &#x2197;</a>
+            </div>
         </div>
 
         <!-- Card 3: Next Race calendar (dynamic) -->
