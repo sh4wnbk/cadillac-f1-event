@@ -282,22 +282,64 @@ const getSessionList = (race) => {
         { label: 'Race',         start: r           } ];
 };
 
-const updateTelemetryStrip = () => {
+const renderStripUpNext = (strip) => {
+  const now = Date.now();
+  const allSessions = RACE_SCHEDULE_2026.flatMap(race =>
+    getSessionList(race).map(s => ({ ...s, raceName: race.name }))
+  );
+  const nextSession = allSessions.find(s => s.start > now);
+  if (!nextSession) {
+    strip.innerHTML = `<p class="strip-off">Season complete.</p>`;
+    return;
+  }
+  const d   = new Date(nextSession.start);
+  const day = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+  const mon = d.toLocaleDateString('en-US', { month: 'short',   timeZone: 'UTC' });
+  const dd  = d.toLocaleDateString('en-US', { day: 'numeric',   timeZone: 'UTC' });
+  const hh  = String(d.getUTCHours()).padStart(2, '0');
+  const mm  = String(d.getUTCMinutes()).padStart(2, '0');
+  strip.innerHTML = `
+    <div class="strip-upcoming">
+      <span class="strip-up-label">UP NEXT</span>
+      <span class="strip-up-value">${nextSession.label} &mdash; ${day}, ${mon} ${dd} &middot; ${hh}:${mm} UTC</span>
+    </div>`;
+};
+
+const updateTelemetryStrip = async () => {
   const strip = document.getElementById('telemetry-session-strip');
   if (!strip) return;
 
   const now = Date.now();
-  // Build a flat list of all sessions across all remaining weekends
+
+  // Primary: ask OpenF1 for the latest session and check if it's live now
+  try {
+    const res  = await fetch('https://api.openf1.org/v1/sessions?session_key=latest');
+    if (res.ok) {
+      const data = await res.json();
+      const s    = Array.isArray(data) ? data[0] : data;
+      if (s && s.date_start && s.date_end) {
+        const start = new Date(s.date_start).getTime();
+        const end   = new Date(s.date_end).getTime();
+        if (now >= start && now <= end) {
+          strip.innerHTML = `
+            <div class="strip-live">
+              <span class="strip-live-text">LIVE</span>
+              <span class="strip-live-session">${s.session_name} &mdash; ${s.location ?? ''}</span>
+            </div>`;
+          return;
+        }
+      }
+    }
+  } catch { /* fall through to estimated times */ }
+
+  // Fallback: estimated session windows
   const allSessions = RACE_SCHEDULE_2026.flatMap(race =>
     getSessionList(race).map(s => ({ ...s, raceName: race.name }))
   );
-
-  // Is any session live right now?
   const liveSession = allSessions.find(s => {
     const dur = (SESSION_DURATION_MS[s.label] ?? 60) * 60_000;
     return now >= s.start && now < s.start + dur;
   });
-
   if (liveSession) {
     strip.innerHTML = `
       <div class="strip-live">
@@ -307,25 +349,7 @@ const updateTelemetryStrip = () => {
     return;
   }
 
-  // Find the next upcoming session
-  const nextSession = allSessions.find(s => s.start > now);
-  if (!nextSession) {
-    strip.innerHTML = `<p class="strip-off">Season complete.</p>`;
-    return;
-  }
-
-  const d   = new Date(nextSession.start);
-  const day = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
-  const mon = d.toLocaleDateString('en-US', { month: 'short',   timeZone: 'UTC' });
-  const dd  = d.toLocaleDateString('en-US', { day: 'numeric',   timeZone: 'UTC' });
-  const hh  = String(d.getUTCHours()).padStart(2, '0');
-  const mm  = String(d.getUTCMinutes()).padStart(2, '0');
-
-  strip.innerHTML = `
-    <div class="strip-upcoming">
-      <span class="strip-up-label">UP NEXT</span>
-      <span class="strip-up-value">${nextSession.label} &mdash; ${day}, ${mon} ${dd} &middot; ${hh}:${mm} UTC</span>
-    </div>`;
+  renderStripUpNext(strip);
 };
 
 updateTelemetryStrip();
