@@ -90,6 +90,14 @@ const STANDINGS_FALLBACK = [
   { pos: 22, driver: 'L. Lawson',     team: 'Racing Bulls',    pts:  0 },
 ];
 
+/* Normalize driver family name → driver card id, e.g. "Hülkenberg" → "driver-hulkenberg" */
+const toDriverId = (driverStr) => {
+  const lastName = driverStr.split('. ')[1] ?? driverStr;
+  return 'driver-' + lastName.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z]/g, '');
+};
+
 const fetchStandings = async () => {
   const list = document.getElementById('standings-list');
   if (!list) return;
@@ -112,14 +120,39 @@ const fetchStandings = async () => {
     }
   } catch { /* network unavailable — use fallback */ }
 
-  list.innerHTML = standings.map(s => `
-    <div class="standings-row">
-      <span class="standings-pos">${s.pos}</span>
-      <span class="standings-driver">${s.driver}</span>
-      <span class="standings-team">${s.team}</span>
-      <span class="standings-pts">${s.pts}</span>
-    </div>
-  `).join('');
+  // Top 10 in standings card
+  list.innerHTML = standings.slice(0, 10).map(s => {
+    const id = toDriverId(s.driver);
+    return `
+      <a href="#${id}" class="standings-row" data-driver-id="${id}">
+        <span class="standings-pos">${s.pos}</span>
+        <span class="standings-driver">${s.driver}</span>
+        <span class="standings-team">${s.team}</span>
+        <span class="standings-pts">${s.pts}</span>
+      </a>`;
+  }).join('');
+
+  // Populate points badges on all driver cards
+  standings.forEach(s => {
+    const card = document.getElementById(toDriverId(s.driver));
+    if (card) {
+      const badge = card.querySelector('.driver-pts-badge');
+      if (badge) badge.textContent = `${s.pts} pts`;
+    }
+  });
+
+  // Smooth scroll + highlight flash on standings row click
+  list.querySelectorAll('.standings-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      const id = row.dataset.driverId;
+      const card = document.getElementById(id);
+      if (!card) return;
+      e.preventDefault();
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('driver-card--highlight');
+      setTimeout(() => card.classList.remove('driver-card--highlight'), 1500);
+    });
+  });
 };
 
 fetchStandings();

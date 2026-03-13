@@ -903,8 +903,30 @@ body.reduce-motion .circuit-spinner {
   border-radius: 0;
 }
 
-.driver-card:hover { 
-  transform: scale(1.03); 
+.driver-card:hover {
+  transform: scale(1.03);
+}
+
+.driver-pts-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+}
+
+@keyframes driver-highlight {
+  0%   { box-shadow: 0 0 0 3px var(--accent); background: rgba(220,38,38,0.12); }
+  100% { box-shadow: none; background: var(--card-bg); }
+}
+
+.driver-card--highlight {
+  animation: driver-highlight 1.5s ease-out forwards;
 }
 
 .car-row {
@@ -2012,7 +2034,14 @@ body.reduce-motion .countdown-live {
   padding: 5px 8px;
   font-size: 0.78rem;
   border-left: 3px solid transparent;
-  transition: border-color 0.2s;
+  transition: background 0.15s, border-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.standings-row:hover {
+  background: rgba(220, 38, 38, 0.07);
 }
 
 .standings-row:nth-child(1) { border-color: var(--color-v-red); }

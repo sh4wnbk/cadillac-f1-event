@@ -68,7 +68,7 @@ without the stylesheet's dress. What am I? -->
             <div id="standings-list" class="standings-list">
               <p class="standings-loading">Loading standings&hellip;</p>
             </div>
-            <a href="#predictions" class="card-bottom-link">Pick Your Winner</a>
+            <a href="#predictions" class="card-bottom-link">Drivers</a>
         </div>
 
         <!-- Card 2: Live Telemetry (replaces static fan predictions) -->
@@ -132,22 +132,21 @@ without the stylesheet's dress. What am I? -->
   </section>
 
   <section id="predictions" class="container">
-  <h2>Race Predictions</h2>
-  <p>Select your predicted winner below:</p>
+  <h2>The Grid</h2>
 
   <div class="driver-grid">
-    
+
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-perez">
                 <img src="./img/sergio-perez.png" alt="Sergio Pérez (Cadillac)">
               <h4>Sergio Pérez</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card" id="valtteri-bottas">
+            <div class="driver-card" id="driver-bottas">
                 <img src="./img/bottas.png" alt="Valtteri Bottas (Cadillac)">
               <h4>Valtteri Bottas</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -160,15 +159,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-colapinto">
               <img src="./img/colapinto.jpeg" alt="Franco Colapinto (Alpine)">
               <h4>Franco Colapinto</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-gasly">
               <img src="./img/gasly.jpeg" alt="Pierre Gasly (Alpine)">
               <h4>Pierre Gasly</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -181,15 +180,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-alonso">
               <img src="./img/alonzo.jpeg" alt="Fernando Alonso (Aston Martin)">
               <h4>Fernando Alonso</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-stroll">
               <img src="./img/stroll.jpeg" alt="Lance Stroll (Aston Martin)">
               <h4>Lance Stroll</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -202,15 +201,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-leclerc">
               <img src="./img/leclerc.jpeg" alt="Charles Leclerc (Ferrari)">
               <h4>Charles Leclerc</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-hamilton">
               <img src="./img/hamilton.jpeg" alt="Lewis Hamilton (Ferrari)">
               <h4>Lewis Hamilton</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -223,15 +222,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-bearman">
               <img src="./img/bearman.jpeg" alt="Oliver Bearman (Haas)">
               <h4>Oliver Bearman</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-ocon">
               <img src="./img/ocon.jpeg" alt="Esteban Ocon (Haas)">
               <h4>Esteban Ocon</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -244,15 +243,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-bortoleto">
               <img src="./img/bortoleto.png" alt="Gabriel Bortoleto (Audi)">
               <h4>Gabriel Bortoleto</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-hulkenberg">
               <img src="./img/hulkenberg.png" alt="Nico Hülkenberg (Audi)">
               <h4>Nico Hülkenberg</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -265,15 +264,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-piastri">
               <img src="./img/piastri.jpeg" alt="Oscar Piastri (McLaren)">
               <h4>Oscar Piastri</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card" id="lando-norris">
+            <div class="driver-card" id="driver-norris">
               <img src="./img/norris.jpeg" alt="Lando Norris (McLaren)">
               <h4>Lando Norris</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -286,15 +285,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-russell">
               <img src="./img/russel.jpeg" alt="George Russell (Mercedes)">
               <h4>George Russell</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-antonelli">
               <img src="./img/antonelli.jpeg" alt="Andrea Kimi Antonelli (Mercedes)">
               <h4>Kimi Antonelli</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -307,15 +306,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card" id="max-verstappen">
+            <div class="driver-card" id="driver-verstappen">
               <img src="./img/verstappen.jpeg" alt="Max Verstappen (Red Bull Racing)">
               <h4>Max Verstappen</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-hadjar">
               <img src="./img/hadjar.png" alt="Isack Hadjar (Red Bull Racing)">
               <h4>Isack Hadjar</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -328,15 +327,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-lawson">
               <img src="./img/lawson.jpeg" alt="Liam Lawson (Racing Bulls)">
               <h4>Liam Lawson</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-lindblad">
               <img src="./img/lindblad.png" alt="Arvid Lindblad (Racing Bulls)">
               <h4>Arvid Lindblad</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
@@ -349,15 +348,15 @@ without the stylesheet's dress. What am I? -->
 
     <div class="team-block">
         <div class="driver-pair">
-            <div class="driver-card">
+            <div class="driver-card" id="driver-albon">
               <img src="./img/albon.jpeg" alt="Alex Albon (Williams)">
               <h4>Alex Albon</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
-            <div class="driver-card">
+            <div class="driver-card" id="driver-sainz">
               <img src="./img/sainz.jpeg" alt="Carlos Sainz (Williams)">
               <h4>Carlos Sainz</h4>
-              <button class="select-btn">Select</button>
+              <span class="driver-pts-badge">— pts</span>
             </div>
         </div>
         <div class="car-row">
