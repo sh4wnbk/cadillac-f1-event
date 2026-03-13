@@ -786,9 +786,11 @@ body.reduce-motion .circuit-spinner {
 .telemetry-card-footer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 2px;
   padding: 10px 20px 20px 20px;
+  width: 100%;
+  text-align: center;
 }
 
 .telemetry-session-label {
