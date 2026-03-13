@@ -65,19 +65,19 @@ const safeStorage = {
    Falls back to hardcoded post-R1 2026 data if offline.
    ============================================== */
 const STANDINGS_FALLBACK = [
-  // Post-R1 2026 (Australian GP) — sourced from Jolpica API 2026-03-12
+  // Post-R1 2026 (Australian GP) — verified against formula1.com/en/drivers 2026-03-12
   { pos:  1, driver: 'G. Russell',    team: 'Mercedes',        pts: 25 },
   { pos:  2, driver: 'K. Antonelli',  team: 'Mercedes',        pts: 18 },
   { pos:  3, driver: 'C. Leclerc',    team: 'Ferrari',         pts: 15 },
   { pos:  4, driver: 'L. Hamilton',   team: 'Ferrari',         pts: 12 },
   { pos:  5, driver: 'L. Norris',     team: 'McLaren',         pts: 10 },
-  { pos:  6, driver: 'M. Verstappen', team: 'Red Bull',        pts:  8 },
+  { pos:  6, driver: 'M. Verstappen', team: 'Red Bull Racing', pts:  8 },
   { pos:  7, driver: 'O. Bearman',    team: 'Haas F1 Team',    pts:  6 },
-  { pos:  8, driver: 'A. Lindblad',   team: 'RB F1 Team',      pts:  4 },
+  { pos:  8, driver: 'A. Lindblad',   team: 'Racing Bulls',    pts:  4 },
   { pos:  9, driver: 'G. Bortoleto',  team: 'Audi',            pts:  2 },
-  { pos: 10, driver: 'P. Gasly',      team: 'Alpine F1 Team',  pts:  1 },
+  { pos: 10, driver: 'P. Gasly',      team: 'Alpine',          pts:  1 },
   { pos: 11, driver: 'O. Piastri',    team: 'McLaren',         pts:  0 },
-  { pos: 12, driver: 'Y. Tsunoda',    team: 'Red Bull',        pts:  0 },
+  { pos: 12, driver: 'I. Hadjar',     team: 'Red Bull Racing', pts:  0 },
   { pos: 13, driver: 'C. Sainz',      team: 'Williams',        pts:  0 },
   { pos: 14, driver: 'A. Albon',      team: 'Williams',        pts:  0 },
   { pos: 15, driver: 'F. Alonso',     team: 'Aston Martin',    pts:  0 },
@@ -86,8 +86,8 @@ const STANDINGS_FALLBACK = [
   { pos: 18, driver: 'N. Hülkenberg', team: 'Audi',            pts:  0 },
   { pos: 19, driver: 'V. Bottas',     team: 'Cadillac',        pts:  0 },
   { pos: 20, driver: 'S. Pérez',      team: 'Cadillac',        pts:  0 },
-  { pos: 21, driver: 'F. Colapinto',  team: 'Alpine F1 Team',  pts:  0 },
-  { pos: 22, driver: 'L. Lawson',     team: 'RB F1 Team',      pts:  0 },
+  { pos: 21, driver: 'F. Colapinto',  team: 'Alpine',          pts:  0 },
+  { pos: 22, driver: 'L. Lawson',     team: 'Racing Bulls',    pts:  0 },
 ];
 
 const fetchStandings = async () => {

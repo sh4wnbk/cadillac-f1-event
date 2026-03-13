@@ -18,8 +18,8 @@ const TEAM_COLORS = {
   'Aston Martin': '#229971',
   'Alpine': '#FF87BC',
   'Williams': '#64C4FF',
-  'RB': '#6692FF',
-  'Kick Sauber': '#52E252',
+  'Racing Bulls': '#6692FF',
+  'Audi': '#999999',
   'Haas F1 Team': '#B6BABD',
   'Cadillac': '#DC2626',
 };
