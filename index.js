@@ -102,11 +102,11 @@ const fetchStandings = async () => {
       const data = await res.json();
       const entries = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? [];
       if (entries.length) {
-        standings = entries.slice(0, 22).map(e => ({
-          pos:    parseInt(e.position, 10),
+        standings = entries.slice(0, 22).map((e, idx) => ({
+          pos:    parseInt(e.position, 10) || (idx + 1),
           driver: `${e.Driver.givenName[0]}. ${e.Driver.familyName}`,
           team:   e.Constructors[0]?.name ?? '',
-          pts:    parseInt(e.points, 10),
+          pts:    parseInt(e.points, 10) || 0,
         }));
       }
     }
@@ -123,6 +123,40 @@ const fetchStandings = async () => {
 };
 
 fetchStandings();
+
+/* ==============================================
+   F1 NEWS FEED
+   Fetches latest F1 headlines from Autosport RSS via rss2json.
+   ============================================== */
+const fetchF1News = async () => {
+  const list = document.getElementById('f1-news-list');
+  if (!list) return;
+
+  try {
+    const rss = 'https://www.autosport.com/rss/f1/news/';
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=8`);
+    if (!res.ok) throw new Error('feed unavailable');
+    const data = await res.json();
+    const items = data.items ?? [];
+    if (!items.length) throw new Error('empty feed');
+
+    const fmt = (iso) => {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
+
+    list.innerHTML = items.map(item => `
+      <li>
+        <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+        <span class="news-feed-meta">${fmt(item.pubDate)}</span>
+      </li>
+    `).join('');
+  } catch {
+    list.innerHTML = '<li class="news-feed-loading">Headlines unavailable — check <a href="https://www.autosport.com/f1/" target="_blank" rel="noopener noreferrer">Autosport.com</a></li>';
+  }
+};
+
+fetchF1News();
 
 /* ==============================================
    CALENDAR CARD — dynamic next race + Google Calendar link
