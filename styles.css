@@ -896,7 +896,8 @@ body.reduce-motion .circuit-spinner {
 
 .driver-card img {
   width: 100%;
-  aspect-ratio: 4 / 5; 
+  height: 200px;
+  aspect-ratio: unset;
   object-fit: cover;
   object-position: center top;
   border-radius: 0;
@@ -923,8 +924,10 @@ body.reduce-motion .circuit-spinner {
 
 .car-card img {
   width: 100%;
-  aspect-ratio: 3 / 1; 
-  object-fit: cover; 
+  height: 120px;
+  aspect-ratio: unset;
+  object-fit: cover;
+  object-position: center;
   border-radius: 0; 
 }
 
