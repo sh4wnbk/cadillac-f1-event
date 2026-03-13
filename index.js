@@ -141,18 +141,34 @@ const fetchStandings = async () => {
     }
   });
 
-  // Smooth scroll + highlight flash on standings row click
+  // Controlled smooth scroll + wiggle on standings row click
+  const smoothScrollTo = (el, duration) => {
+    const targetY = el.getBoundingClientRect().top + window.scrollY
+                    - window.innerHeight / 2 + el.offsetHeight / 2;
+    const startY  = window.scrollY;
+    const dist    = targetY - startY;
+    let startTime = null;
+    const ease    = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    const step    = ts => {
+      if (!startTime) startTime = ts;
+      const p = Math.min((ts - startTime) / duration, 1);
+      window.scrollTo(0, startY + dist * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
   list.querySelectorAll('.standings-row').forEach(row => {
     row.addEventListener('click', (e) => {
-      const id = row.dataset.driverId;
+      const id   = row.dataset.driverId;
       const card = document.getElementById(id);
       if (!card) return;
       e.preventDefault();
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      smoothScrollTo(card, 1500);           // 1.5s ease-in-out scroll
       setTimeout(() => {
-        card.classList.add('driver-card--highlight');
-        setTimeout(() => card.classList.remove('driver-card--highlight'), 1600);
-      }, 600);
+        card.classList.add('driver-highlight');
+        setTimeout(() => card.classList.remove('driver-highlight'), 1200);
+      }, 2500);                             // wiggle fires after scroll settles
     });
   });
 };
