@@ -159,6 +159,22 @@ const fetchF1News = async () => {
 fetchF1News();
 
 /* ==============================================
+   CAR CARD BLURRED BACKGROUND FILL
+   Wraps each .car-card img in a .car-img-wrap div and sets
+   --car-img so the CSS ::before pseudo-element can blur-fill
+   any letterbox gap caused by mismatched source aspect ratios.
+   ============================================== */
+document.querySelectorAll('.car-card').forEach(card => {
+  const img = card.querySelector('img');
+  if (!img) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'car-img-wrap';
+  wrap.style.setProperty('--car-img', `url('${img.getAttribute('src')}')`);
+  card.insertBefore(wrap, img);
+  wrap.appendChild(img);
+});
+
+/* ==============================================
    CALENDAR CARD — dynamic next race + Google Calendar link
    ============================================== */
 const CIRCUIT_SVGS = {

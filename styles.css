@@ -913,8 +913,8 @@ body.reduce-motion .circuit-spinner {
 
 .car-card {
   background: var(--card-bg);
-  border-radius: 0; 
-  padding: 0; 
+  border-radius: 0;
+  padding: 0;
   text-align: center;
   width: 100%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -922,12 +922,30 @@ body.reduce-motion .circuit-spinner {
   transition: transform 0.2s, background 0.3s ease;
 }
 
+/* Blurred background fill — handles any image aspect ratio.
+   .car-img-wrap is injected by JS around each car <img>. */
+.car-img-wrap {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.car-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  background: var(--car-img) center / cover no-repeat;
+  filter: blur(12px) brightness(0.6);
+  z-index: 0;
+}
+
 .car-card img {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  height: 180px;
+  height: 100%;
   aspect-ratio: unset;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain;
   border-radius: 0;
 }
 
