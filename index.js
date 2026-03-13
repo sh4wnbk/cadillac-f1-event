@@ -18,7 +18,14 @@ const RACE_DURATION_MS    = 2 * 60 * 60 * 1000; // 2-hour live window
    ============================================== */
 const RACE_SCHEDULE_2026 = [
   { round:  1, name: "Australian GP",    circuit: "Albert Park",                   city: "Melbourne",    country: "Australia",    flag: "🇦🇺", raceStart: new Date("2026-03-08T04:00:00Z") },
-  { round:  2, name: "Chinese GP",       circuit: "Shanghai International Circuit", city: "Shanghai",    country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-15T07:00:00Z") },
+  { round:  2, name: "Chinese GP",       circuit: "Shanghai International Circuit", city: "Shanghai",    country: "China",        flag: "🇨🇳", raceStart: new Date("2026-03-15T07:00:00Z"), hasSprint: true,
+    sessions: [
+      { label: 'Practice 1',        start: new Date("2026-03-13T03:30:00Z").getTime() },
+      { label: 'Sprint Qualifying', start: new Date("2026-03-13T07:30:00Z").getTime() },
+      { label: 'Sprint Race',       start: new Date("2026-03-14T03:00:00Z").getTime() },
+      { label: 'Qualifying',        start: new Date("2026-03-14T07:00:00Z").getTime() },
+      { label: 'Race',              start: new Date("2026-03-15T07:00:00Z").getTime() },
+    ]},
   { round:  3, name: "Japanese GP",      circuit: "Suzuka",                        city: "Suzuka",       country: "Japan",        flag: "🇯🇵", raceStart: new Date("2026-03-29T05:00:00Z") },
   { round:  4, name: "Bahrain GP",       circuit: "Bahrain International Circuit", city: "Sakhir",       country: "Bahrain",      flag: "🇧🇭", raceStart: new Date("2026-04-12T15:00:00Z") },
   { round:  5, name: "Saudi Arabian GP", circuit: "Jeddah Corniche Circuit",       city: "Jeddah",       country: "Saudi Arabia", flag: "🇸🇦", raceStart: new Date("2026-04-19T17:00:00Z") },
@@ -262,11 +269,13 @@ buildCalendarCard();
    ============================================== */
 const SESSION_DURATION_MS = {
   'FP1': 60, 'FP2': 60, 'FP3': 60,
-  'Sprint Quali': 30, 'Sprint Race': 60,
+  'Practice 1': 60, 'Practice 2': 60, 'Practice 3': 60,
+  'Sprint Qualifying': 45, 'Sprint Quali': 45, 'Sprint Race': 60,
   'Qualifying': 60, 'Race': 120,
 };
 
 const getSessionList = (race) => {
+  if (race.sessions) return race.sessions;
   const r = race.raceStart.getTime();
   const H = 3_600_000;
   return race.hasSprint
