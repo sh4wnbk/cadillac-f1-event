@@ -782,32 +782,32 @@ body.reduce-motion .circuit-spinner {
   }
 }
 
-/* Telemetry card footer — session label + link side by side */
+/* Telemetry card footer — session label stacked above link */
 .telemetry-card-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 0 20px 20px 20px;
-  flex-grow: 1;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 20px 20px 20px;
 }
 
 .telemetry-session-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: #888;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  min-height: 1em;
 }
 
 /* Override card-bottom-link padding when inside telemetry footer */
 .telemetry-card-footer .card-bottom-link {
   padding: 0;
-  flex-shrink: 0;
+}
+
+/* Slat items used as links */
+a.card-content-item {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
 }
 
 /* Uniform H3 styling across all cards — exact match, no inherited drift */
