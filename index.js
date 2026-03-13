@@ -125,40 +125,6 @@ const fetchStandings = async () => {
 fetchStandings();
 
 /* ==============================================
-   F1 NEWS FEED
-   Fetches latest F1 headlines from Autosport RSS via rss2json.
-   ============================================== */
-const fetchF1News = async () => {
-  const list = document.getElementById('f1-news-list');
-  if (!list) return;
-
-  try {
-    const rss = 'https://www.autosport.com/rss/f1/news/';
-    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=8`);
-    if (!res.ok) throw new Error('feed unavailable');
-    const data = await res.json();
-    const items = data.items ?? [];
-    if (!items.length) throw new Error('empty feed');
-
-    const fmt = (iso) => {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    };
-
-    list.innerHTML = items.map(item => `
-      <li>
-        <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
-        <span class="news-feed-meta">${fmt(item.pubDate)}</span>
-      </li>
-    `).join('');
-  } catch {
-    list.innerHTML = '<li class="news-feed-loading">Headlines unavailable — check <a href="https://www.autosport.com/f1/" target="_blank" rel="noopener noreferrer">Autosport.com</a></li>';
-  }
-};
-
-fetchF1News();
-
-/* ==============================================
    CAR CARD BLURRED BACKGROUND FILL
    Wraps each .car-card img in a .car-img-wrap div and sets
    --car-img so the CSS ::before pseudo-element can blur-fill
