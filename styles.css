@@ -959,26 +959,76 @@ body.reduce-motion .circuit-spinner {
 }
 
 /* ============================================================
-   LINKS BLOCK (in driver grid — 12th slot)
+   F1 NEWS FEED BLOCK
    ============================================================ */
-.links-block {
+.news-feed-block {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 12px;
 }
 
-.links-block .link-list-card,
-.links-block .video-card {
-  background: none;
-  box-shadow: none;
-  border: none;
+.news-feed-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.news-feed-list {
+  list-style: none;
+  margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  max-height: 340px;
 }
 
+.news-feed-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.news-feed-list li:last-child {
+  border-bottom: none;
+}
+
+.news-feed-list a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-weight: 500;
+  display: block;
+  transition: color 0.2s;
+}
+
+.news-feed-list a:hover {
+  color: var(--accent);
+}
+
+.news-feed-meta {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.news-feed-loading {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
 
 .select-btn {
   background: var(--accent);
