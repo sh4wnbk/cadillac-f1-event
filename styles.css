@@ -178,12 +178,12 @@ h4, h5, h6, p, li, span, a, button {
 }
 
 .navbar ul li a, #theme-button, #motion-button {
-    font-family: 'Oswald', sans-serif; 
-    font-weight: 500; 
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
     text-transform: uppercase;
     font-size: 1rem;
-    padding: 10px 15px; 
-    border-radius: 20px;
+    padding: 10px 15px;
+    text-decoration: none;
 }
 
 /* Commented out for now. Not 100% sold on it! */
@@ -1954,7 +1954,7 @@ body.reduce-motion .countdown-live {
 /* Active nav link styling */
 .nav-active {
   color: #dc2626 !important;
-  border-bottom: 2px solid #dc2626;
+  box-shadow: inset 0 -2px 0 0 #dc2626;
 }
 
 /* Section footer link (e.g. "View Full Calendar" button) */
