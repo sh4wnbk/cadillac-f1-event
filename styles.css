@@ -921,12 +921,13 @@ body.reduce-motion .circuit-spinner {
 }
 
 @keyframes driver-highlight {
-  0%   { box-shadow: 0 0 0 3px var(--accent); background: rgba(220,38,38,0.12); }
-  100% { box-shadow: none; background: var(--card-bg); }
+  0%   { outline: 3px solid var(--accent); outline-offset: 3px; background: rgba(220,38,38,0.12); }
+  60%  { outline: 3px solid var(--accent); outline-offset: 3px; background: rgba(220,38,38,0.06); }
+  100% { outline: 3px solid transparent;  outline-offset: 3px; background: var(--card-bg); }
 }
 
 .driver-card--highlight {
-  animation: driver-highlight 1.5s ease-out forwards;
+  animation: driver-highlight 1.6s ease-out forwards;
 }
 
 .car-row {

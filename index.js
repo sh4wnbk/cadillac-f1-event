@@ -149,8 +149,10 @@ const fetchStandings = async () => {
       if (!card) return;
       e.preventDefault();
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      card.classList.add('driver-card--highlight');
-      setTimeout(() => card.classList.remove('driver-card--highlight'), 1500);
+      setTimeout(() => {
+        card.classList.add('driver-card--highlight');
+        setTimeout(() => card.classList.remove('driver-card--highlight'), 1600);
+      }, 600);
     });
   });
 };
