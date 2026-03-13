@@ -141,34 +141,18 @@ const fetchStandings = async () => {
     }
   });
 
-  // Controlled smooth scroll + wiggle on standings row click
-  const smoothScrollTo = (el, duration) => {
-    const targetY = el.getBoundingClientRect().top + window.scrollY
-                    - window.innerHeight / 2 + el.offsetHeight / 2;
-    const startY  = window.scrollY;
-    const dist    = targetY - startY;
-    let startTime = null;
-    const ease    = t => t * (2 - t);        // ease-out: instant start, soft landing
-    const step    = ts => {
-      if (!startTime) startTime = ts;
-      const p = Math.min((ts - startTime) / duration, 1);
-      window.scrollTo(0, startY + dist * ease(p));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-
+  // Instant scroll + wiggle at 2500ms
   list.querySelectorAll('.standings-row').forEach(row => {
     row.addEventListener('click', (e) => {
       const id   = row.dataset.driverId;
       const card = document.getElementById(id);
       if (!card) return;
       e.preventDefault();
-      smoothScrollTo(card, 2000);           // 2.0s ease-out scroll
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       setTimeout(() => {
         card.classList.add('driver-highlight');
         setTimeout(() => card.classList.remove('driver-highlight'), 1200);
-      }, 2000);                             // wiggle at scroll end → total 3.2s
+      }, 2500);
     });
   });
 };
