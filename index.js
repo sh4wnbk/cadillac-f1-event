@@ -148,7 +148,7 @@ const fetchStandings = async () => {
     const startY  = window.scrollY;
     const dist    = targetY - startY;
     let startTime = null;
-    const ease    = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    const ease    = t => t * (2 - t);        // ease-out: instant start, soft landing
     const step    = ts => {
       if (!startTime) startTime = ts;
       const p = Math.min((ts - startTime) / duration, 1);
@@ -164,11 +164,11 @@ const fetchStandings = async () => {
       const card = document.getElementById(id);
       if (!card) return;
       e.preventDefault();
-      smoothScrollTo(card, 1500);           // 1.5s ease-in-out scroll
+      smoothScrollTo(card, 2000);           // 2.0s ease-out scroll
       setTimeout(() => {
         card.classList.add('driver-highlight');
         setTimeout(() => card.classList.remove('driver-highlight'), 1200);
-      }, 2500);                             // wiggle fires after scroll settles
+      }, 2000);                             // wiggle at scroll end → total 3.2s
     });
   });
 };
