@@ -306,8 +306,11 @@ const updateTelemetryStrip = async () => {
   const overlay = document.getElementById('telemetry-live-overlay');
   if (!strip) return;
 
+  const heroImg = document.getElementById('telemetry-hero-img');
+
   const setLive = (sessionName, location) => {
     strip.textContent = `${sessionName}${location ? ' \u2014 ' + location : ''}`;
+    if (heroImg) { heroImg.src = './img/live.png'; heroImg.alt = 'F1 Live'; }
     if (overlay) {
       overlay.innerHTML = '<span>LIVE</span>';
       overlay.classList.add('is-live');
@@ -315,6 +318,7 @@ const updateTelemetryStrip = async () => {
   };
 
   const clearLive = () => {
+    if (heroImg) { heroImg.src = './img/telemetry.jpeg'; heroImg.alt = 'F1 Telemetry'; }
     if (overlay) {
       overlay.innerHTML = '';
       overlay.classList.remove('is-live');
