@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Timing Tower | 2026 Season</title>
+  <link rel="icon" href="./img/cadillac_favicon.png" />
+  <link rel="stylesheet" href="./reset.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Base */
+    *, *::before, *::after { box-sizing: border-box; }
+    body.timing-mode { overflow: hidden; background: #0a0a0a; color: #e0e0e0; }
+
+    /* Layout */
+    .timing-wrapper { display: flex; flex-direction: column; height: 100vh; }
+    .timing-header { flex-shrink: 0; }
+
+    /* Session bar */
+    .timing-session-bar {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.4rem 1.2rem; background: #111; border-bottom: 2px solid #dc2626;
+      font-family: 'Oswald', sans-serif; font-size: 0.85rem; flex-wrap: wrap; flex-shrink: 0;
+    }
+    .session-pill { background: #dc2626; color: #fff; padding: 2px 10px; font-size: 0.7rem; letter-spacing: 0.1em; }
+    .session-live-dot { width: 8px; height: 8px; background: #dc2626; border-radius: 50%; display: inline-block; animation: dot-pulse 1.4s ease-in-out infinite; }
+    @keyframes dot-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
+    .session-info-text { opacity: 0.7; font-size: 0.78rem; }
+    #btn-fullscreen-timing { margin-left: auto; font-family: 'Oswald', sans-serif; font-size: 0.75rem; padding: 3px 10px; background: transparent; border: 1px solid #444; color: #aaa; cursor: pointer; }
+    #btn-fullscreen-timing:hover { border-color: #dc2626; color: #fff; }
+
+    /* Split layout */
+    .timing-split { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+
+    /* Timing tower — top 45% */
+    .timing-tower-wrap {
+      flex: 0 0 45%; display: flex; flex-direction: column; min-height: 0;
+      border-bottom: 2px solid #222;
+    }
+    .tower-scroll { overflow-y: auto; flex: 1; }
+
+    /* Tower table */
+    .tower-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; table-layout: fixed; }
+    .tower-table thead th {
+      position: sticky; top: 0; background: #111; padding: 6px 8px;
+      font-family: 'Oswald', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #666; text-align: left; border-bottom: 1px solid #222;
+    }
+    .tower-table td { padding: 5px 8px; border-bottom: 1px solid #1a1a1a; vertical-align: middle; }
+    .tower-table tbody tr:hover { background: #1a1a1a; }
+
+    /* Column widths */
+    .col-pos    { width: 36px; }
+    .col-driver { width: 100px; }
+    .col-gap    { width: 90px; }
+    .col-int    { width: 80px; }
+    .col-lap    { width: 90px; }
+    .col-s1, .col-s2, .col-s3 { width: 68px; }
+    .col-tire   { width: 54px; }
+    .col-pits   { width: 42px; }
+
+    /* Driver name pill */
+    .driver-name-pill {
+      display: inline-block; padding: 2px 8px 2px 4px;
+      font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.05em; border-left: 3px solid var(--team-color, #888);
+    }
+
+    /* Position number */
+    .pos-num { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1rem; }
+    .pos-num.p1 { color: #eab308; }
+    .pos-num.p2 { color: #9ca3af; }
+    .pos-num.p3 { color: #b45309; }
+
+    /* Sector time chips */
+    .sector-time {
+      font-family: 'Inter', monospace; font-size: 0.72rem; padding: 1px 5px;
+      border-radius: 2px; background: #222;
+    }
+    .sector-time.personal-best { background: #14532d; color: #86efac; }
+    .sector-time.overall-best  { background: #581c87; color: #e879f9; }
+
+    /* Tire badge */
+    .tire-badge {
+      width: 22px; height: 22px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 0.65rem;
+      font-family: 'Oswald', sans-serif; font-weight: 700; color: #000;
+    }
+    .tire-S { background: #ef4444; }
+    .tire-M { background: #eab308; }
+    .tire-H { background: #e5e7eb; }
+    .tire-I { background: #60a5fa; }
+    .tire-W { background: #2563eb; color: #fff; }
+
+    /* Gap cells */
+    .gap-leader { font-family: 'Inter', monospace; font-size: 0.78rem; }
+    .gap-ahead  { font-family: 'Inter', monospace; font-size: 0.72rem; color: #666; }
+    .gap-leader.interval-delta { color: #86efac; }
+
+    /* Eliminated / Q zone rows (qualifying) */
+    .row-eliminated td { opacity: 0.45; }
+    .row-q3-safe td { border-left: 2px solid #eab308; }
+    .row-q2-safe td { border-left: 2px solid #888; }
+
+    /* Track map — bottom 55% */
+    .track-map-wrap {
+      flex: 1; position: relative; background: #0d0d0d; min-height: 0; overflow: hidden;
+    }
+    #track-canvas { width: 100%; height: 100%; display: block; }
+
+    /* Driver dot on canvas — overlaid via absolute positioning for labels */
+    .canvas-overlay { position: absolute; inset: 0; pointer-events: none; }
+
+    /* Loading / error states */
+    .timing-status {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 0.1em;
+      color: #444; text-align: center;
+    }
+    .stale-bar {
+      display: none; background: #7c2d12; color: #fef2f2;
+      font-size: 0.75rem; text-align: center; padding: 4px; flex-shrink: 0;
+    }
+    .stale-bar.visible { display: block; }
+  </style>
+</head>
+
+<body class="timing-mode">
+<div class="timing-wrapper">
+
+  <!-- Site header -->
+  <header class="header-container timing-header">
+    <div class="header-item">
+      <img src="./img/cadillac-logo.jpg" alt="Cadillac Logo" class="brand-logo" />
+    </div>
+    <div class="navbar">
+      <ul>
+        <li><a href="index.html#event">Event</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="index.html#predictions">Predictions</a></li>
+        <li><a href="live.html">Live</a></li>
+        <li><a href="timing.html" class="nav-active">Timing</a></li>
+        <li><a href="index.html#links">Links</a></li>
+        <li><button id="motion-button">Reduce Motion</button></li>
+        <li><button id="theme-button">Toggle Dark Mode</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Stale data bar -->
+  <div id="stale-bar" class="stale-bar">&#9888; DATA STALE &mdash; CHECK CONNECTION</div>
+
+  <!-- Session bar -->
+  <div class="timing-session-bar">
+    <span class="session-live-dot" id="session-dot" style="display:none"></span>
+    <span class="session-pill" id="session-pill">LOADING</span>
+    <span id="session-race-name" class="session-info-text">&mdash;</span>
+    <span id="session-lap-info" class="session-info-text"></span>
+    <span id="session-flag-info" class="session-info-text"></span>
+    <button id="btn-fullscreen-timing">&#x26F6; FULLSCREEN</button>
+  </div>
+
+  <!-- Split: tower top, map bottom -->
+  <div class="timing-split">
+
+    <!-- TOP: Timing tower -->
+    <div class="timing-tower-wrap">
+      <div class="tower-scroll">
+        <table class="tower-table" id="tower-table">
+          <thead>
+            <tr>
+              <th class="col-pos">P</th>
+              <th class="col-driver">Driver</th>
+              <th class="col-gap">Gap</th>
+              <th class="col-int">Interval</th>
+              <th class="col-lap">Last Lap</th>
+              <th class="col-s1">S1</th>
+              <th class="col-s2">S2</th>
+              <th class="col-s3">S3</th>
+              <th class="col-tire">Tire</th>
+              <th class="col-pits">Pits</th>
+            </tr>
+          </thead>
+          <tbody id="tower-body">
+            <tr><td colspan="10" class="timing-status" style="position:relative;transform:none;padding:2rem;text-align:center">Connecting to timing feed&hellip;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BOTTOM: Track map canvas -->
+    <div class="track-map-wrap">
+      <canvas id="track-canvas"></canvas>
+      <div id="map-status" class="timing-status">Awaiting position data&hellip;</div>
+    </div>
+
+  </div><!-- .timing-split -->
+
+</div><!-- .timing-wrapper -->
+
+<script src="timing.js"></script>
+</body>
+</html>
