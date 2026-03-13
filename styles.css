@@ -924,12 +924,11 @@ body.reduce-motion .circuit-spinner {
 
 .car-card img {
   width: 100%;
-  height: 120px;
+  height: 180px;
   aspect-ratio: unset;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   border-radius: 0;
-  background: var(--card-bg);
 }
 
 .car-card h4 {
